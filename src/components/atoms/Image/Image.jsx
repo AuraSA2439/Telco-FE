@@ -6,7 +6,7 @@ export const Image = ({ src, alt }) => (
     alt={alt}
     width={400}
     height={800}
-    className="w-full h-48 object-cover rounded-xl"
+    className="w-full h-full"
     priority={false}
   />
 );

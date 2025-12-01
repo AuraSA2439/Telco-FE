@@ -7,7 +7,12 @@ import Navbar from "../components/organisms/Navbar/Navbar";
 const productsData = [
   { id: 1, price: "Rp. 100.000", image: "/assets/paket1.png" },
   { id: 2, price: "Rp. 25.000", image: "/assets/paket2.png" },
-  { id: 3, price: "Rp. 15.000", image: "/assets/paket3.png" }
+  { id: 3, price: "Rp. 15.000", image: "/assets/paket3.png" },
+  { id: 4, price: "Rp. 8.500", image: "/assets/paket4.png" },
+  { id: 6, price: "Rp. 100.000", image: "/assets/paket1.png" },
+  { id: 7, price: "Rp. 25.000", image: "/assets/paket2.png" },
+  { id: 8, price: "Rp. 15.000", image: "/assets/paket3.png" },
+  { id: 9, price: "Rp. 8.500", image: "/assets/paket4.png" },
 ];
 
 const usersData = [
@@ -22,7 +27,8 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="px-10 py-4 font-sans max-w-6xl mx-auto">
+      <div className="px-20 py-4 w-full mx-auto flex flex-col items-center gap-4">
+        <CardInfo />
         <CardInfo />
         <ProductGrid products={productsData} onAdd={handleAddToCart} />
         {/* <CartSidebar cart={cart} /> */}

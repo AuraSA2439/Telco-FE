@@ -46,12 +46,10 @@ export default function Navbar() {
 
       {/* Mobile Dropdown */}
       {open && (
-        <div className="md:hidden px-6 py-2 border-t bg-white animate-fadeIn">
+        <div className="md:hidden px-6 py-2 border-t text-black bg-white animate-fadeIn">
           <div className="flex flex-col gap-4 font-sans">
-            <Link href="/" onClick={() => setOpen(false)}>Home</Link>
-            <Link href="/products" onClick={() => setOpen(false)}>Products</Link>
-            <Link href="/about" onClick={() => setOpen(false)}>About</Link>
-            <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
+            <Link href="/" onClick={() => setOpen(false)}>Beranda</Link>
+            <Link href="/products" onClick={() => setOpen(false)}>Beli Paket</Link>
 
             <Button className="w-full mt-4">Login</Button>
           </div>

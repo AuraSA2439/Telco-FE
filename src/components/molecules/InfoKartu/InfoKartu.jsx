@@ -3,7 +3,7 @@ import styles from "./InfoKartu.module.css";
 
 export default function InfoKartu({ kartu }) {
   return (
-    <div className="wrapper">
+    <div className={`${styles.wrapper}`}>
       <div className={`${styles.title}`}>
         <h2>{kartu.number}</h2>
         <Badge>{kartu.status}</Badge>
