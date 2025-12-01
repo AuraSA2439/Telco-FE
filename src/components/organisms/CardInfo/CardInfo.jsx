@@ -9,6 +9,7 @@ export default function CardInfo({ }) {
     status: "Prepaid",
     timelimit: "31 Desember 2025",
     device: "Poco M4 Pro",
+    pulsa: "Rp 100.000",
   };
 
   return (

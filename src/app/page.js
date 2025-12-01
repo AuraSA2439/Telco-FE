@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ProductGrid } from "../components/organisms/ProductGrid/ProductGrid";
 import CardInfo from "../components/organisms/CardInfo/CardInfo";
+import CardPaket from "../components/organisms/CardPaket/CardPaket";
 import Navbar from "../components/organisms/Navbar/Navbar";
 
 const productsData = [
@@ -27,9 +28,9 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="px-20 py-4 w-full mx-auto flex flex-col items-center gap-4">
+      <div className="px-20 py-4 max-w-[800px] mx-auto flex flex-col items-center gap-4">
         <CardInfo />
-        <CardInfo />
+        <CardPaket />
         <ProductGrid products={productsData} onAdd={handleAddToCart} />
         {/* <CartSidebar cart={cart} /> */}
       </div>
