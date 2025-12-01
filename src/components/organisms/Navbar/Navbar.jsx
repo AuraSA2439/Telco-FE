@@ -1,0 +1,62 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { Button } from "@/components/atoms/Button/Button";
+import SearchBar from "@/components/atoms/SearchBar/SearchBar";
+import styles from "./Navbar.module.css";
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <nav className={`w-full h-fit text-white sticky top-0 z-50 ${styles.nav}`}>
+      <div className="mx-auto flex items-center gap-8 px-6">
+        {/* Logo */}
+        <Link href="/">
+          <img src="/assets/logo.png" alt="Logo" className="w-full"/>
+        </Link>
+
+        <div className="w-full h-full flex items-center gap-10">
+          {/* Desktop Search Bar */}
+          <SearchBar onSearch={(value) => console.log("Searching:", value)} />
+
+          {/* Desktop Menu */}
+          <div className="w-fit h-full hidden md:flex items-center gap-8">
+            <Link href="/" className={`${styles.navButton}`}>Beranda</Link>
+            <Link href="/products" className={`${styles.navButton}`}>Beli Paket</Link>
+          </div>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:flex">
+            <Button>Login</Button>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
+          >
+            <span className="material-symbols-outlined text-[24px]">
+              {open ? "close" : "menu"}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Dropdown */}
+      {open && (
+        <div className="md:hidden px-6 py-2 border-t bg-white animate-fadeIn">
+          <div className="flex flex-col gap-4 font-sans">
+            <Link href="/" onClick={() => setOpen(false)}>Home</Link>
+            <Link href="/products" onClick={() => setOpen(false)}>Products</Link>
+            <Link href="/about" onClick={() => setOpen(false)}>About</Link>
+            <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
+
+            <Button className="w-full mt-4">Login</Button>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+}

@@ -1,0 +1,9 @@
+.wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+}
+
+.title {
+  display: flex;
+}

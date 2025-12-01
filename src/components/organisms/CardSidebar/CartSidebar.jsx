@@ -1,5 +1,5 @@
-import { Text } from "../atoms/Text";
-import { CartItem } from "../molecules/CartItem";
+import { Text } from "../../atoms/Text/Text";
+import { CartItem } from "../../molecules/CartItem/CartItem";
 
 export const CartSidebar = ({ cart }) => (
   <div className="p-4 border rounded-2xl mt-6">

@@ -1,0 +1,10 @@
+.searchBar {
+  background-color: #ffffff;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.searchBar:hover {
+  border: 2px solid var(--secondary-color);
+}

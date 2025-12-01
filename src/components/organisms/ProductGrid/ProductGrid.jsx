@@ -1,4 +1,4 @@
-import { ProductCard } from "../molecules/ProductCard";
+import { ProductCard } from "../../molecules/ProductCard/ProductCard";
 
 export const ProductGrid = ({ products, onAdd }) => (
   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">

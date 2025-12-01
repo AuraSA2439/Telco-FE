@@ -1,0 +1,10 @@
+.nav {
+  background-color: var(--primary-color);
+}
+
+.navButton {
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
