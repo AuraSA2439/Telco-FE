@@ -5,9 +5,9 @@ import CardInfo from "../components/organisms/CardInfo/CardInfo";
 import Navbar from "../components/organisms/Navbar/Navbar";
 
 const productsData = [
-  { id: 1, name: "Basic Shirt", price: "$20", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab" },
-  { id: 2, name: "Casual Shoes", price: "$45", image: "https://images.unsplash.com/photo-1519744792095-2f2205e87b6f" },
-  { id: 3, name: "Minimalist Backpack", price: "$30", image: "https://images.unsplash.com/photo-1504274066651-8d31a536b11a" }
+  { id: 1, price: "Rp. 100.000", image: "/assets/paket1.png" },
+  { id: 2, price: "Rp. 25.000", image: "/assets/paket2.png" },
+  { id: 3, price: "Rp. 15.000", image: "/assets/paket3.png" }
 ];
 
 const usersData = [
