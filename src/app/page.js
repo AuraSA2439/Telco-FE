@@ -6,6 +6,7 @@ import ProductGrid from "../components/organisms/ProductGrid/ProductGrid";
 import CardInfo from "../components/organisms/CardInfo/CardInfo";
 import CardPaket from "../components/organisms/CardPaket/CardPaket";
 import Navbar from "../components/organisms/Navbar/Navbar";
+import Footer from "@/components/organisms/Footer/Footer";
 
 const productsData = [
   { id: 1, price: "Rp. 100.000", image: "/assets/paket1.svg" },
@@ -37,6 +38,7 @@ export default function Home() {
         <ProductGrid products={productsData} onAdd={handleAddToCart} />
         {/* <CartSidebar cart={cart} /> */}
       </div>
+      <Footer />
     </>
   );
 }
