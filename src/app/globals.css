@@ -36,3 +36,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter);
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

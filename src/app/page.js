@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { ProductGrid } from "../components/organisms/ProductGrid/ProductGrid";
+import ProductRow from "../components/organisms/ProductRow/ProductRow";
+import ProductGrid from "../components/organisms/ProductGrid/ProductGrid";
 import CardInfo from "../components/organisms/CardInfo/CardInfo";
 import CardPaket from "../components/organisms/CardPaket/CardPaket";
 import Navbar from "../components/organisms/Navbar/Navbar";
@@ -31,6 +32,7 @@ export default function Home() {
       <div className="px-20 py-4 max-w-[800px] mx-auto flex flex-col items-center gap-4">
         <CardInfo />
         <CardPaket />
+        <ProductRow products={productsData} onAdd={handleAddToCart} />
         <ProductGrid products={productsData} onAdd={handleAddToCart} />
         {/* <CartSidebar cart={cart} /> */}
       </div>
