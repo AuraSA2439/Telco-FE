@@ -8,8 +8,8 @@ export default function InfoKartu({ kartu }) {
         <h2>{kartu.number}</h2>
         <Badge>{kartu.status}</Badge>
       </div>
-      <div className="description">
-        <p>Berlaku sampai {kartu.timelimit}</p>
+      <div className={`${styles.description}`}>
+        <p className="text-gray-400">Berlaku sampai {kartu.timelimit}</p>
       </div>
     </div>
   );

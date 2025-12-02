@@ -4,8 +4,8 @@ export const Image = ({ src, alt }) => (
   <NextImage
     src={src}
     alt={alt}
-    width={400}
-    height={800}
+    width={300}
+    height={300}
     className="w-full h-full"
     priority={false}
   />

@@ -8,18 +8,17 @@
 
 /* SMALL */
 .small {
-  padding: 12px;
   gap: 8px;
 }
 
 /* MEDIUM */
 .medium {
-  padding: 16px;
-  gap: 12px;
+  padding: 10px;
+  gap: 8px;
 }
 
 /* BIG */
 .big {
-  padding: 24px;
-  gap: 24px;
+  padding: 30px;
+  gap: 8px;
 }

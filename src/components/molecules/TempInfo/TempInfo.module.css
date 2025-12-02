@@ -1,21 +1,13 @@
 .wrapper {
   width: 100%;
   height: auto;
-  padding: 10px 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  border-bottom: 1px solid var(--neutral-color);
 }
 
 .description {
   font-weight: 700;
   font-size: 20px;
   color: #000000;
-}
-
-.link {
-  color: var(--primary-color);
 }

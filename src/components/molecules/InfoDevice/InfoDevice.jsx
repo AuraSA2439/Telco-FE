@@ -7,7 +7,7 @@ export default function InfoDevice({ kartu }) {
         <h2>Device:</h2>
       </div>
       <div className={`${styles.description}`}>
-        <p>{kartu.device}</p>
+        <p className="font-medium">{kartu.device}</p>
       </div>
     </div>
   );
