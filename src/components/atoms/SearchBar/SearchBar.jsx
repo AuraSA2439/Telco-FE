@@ -13,7 +13,7 @@ export default function SearchBar({ placeholder = "Search...", onSearch }) {
   };
 
   return (
-    <div className={`${styles.searchBar} w-full h-full rounded-full flex items-center text-gray-400 placeholder-gray-400 gap-2`}>
+    <div className={`${styles.searchBar} w-full max-w-[800px] h-full rounded-full flex items-center text-gray-400 placeholder-gray-400 gap-2`}>
       <input
         type="text"
         className={`w-full outline-none`}

@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import ProductRow from "../components/organisms/ProductRow/ProductRow";
 import ProductGrid from "../components/organisms/ProductGrid/ProductGrid";

@@ -35,7 +35,7 @@ export default function Navbar() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
+            className="md:hidden p-2 rounded-lg hover:bg-purple-800 transition flex items-center justify-center"
           >
             <span className="material-symbols-outlined text-[24px]">
               {open ? "close" : "menu"}

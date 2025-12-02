@@ -7,8 +7,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Shopping Site",
-  description: "Atomic Design + Next.js",
+  title: "Telco",
+  description: "A Telcom Products Recommendation Website",
 };
 
 export default function RootLayout({ children }) {
