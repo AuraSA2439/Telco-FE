@@ -6,8 +6,8 @@ import CardContainer from "../../atoms/CardContainer/CardContainer";
 export default function ProductCard({ product, onAdd }) {
   return (
     <>
-    <Link href={`/product/${product.id}`}>
-      <CardContainer size="medium" className={`${styles.wrapper}`}
+    <Link href={`/product/${product.id}`} className={styles.link}>
+      <CardContainer size="medium" className={styles.wrapper}
       onClick={() => onAdd(product)}>
         <Image src={product.image} alt={product.price} />
         {/* <h2 className="mt-3">{product.name}</h2> */}

@@ -16,7 +16,7 @@ export default function ProductRow({ products, onAdd }) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-[10px] relative">
+    <div className="w-full flex flex-col gap-[10px] relative mt-2">
       <CardHeader
         title="Penawaran untuk Mu"
         linkText="Lihat Semua"
@@ -44,7 +44,7 @@ export default function ProductRow({ products, onAdd }) {
             {products.map((p) => (
               <div
                 key={p.id}
-                className="flex-shrink-0 md:w-[calc((100%-4.5rem)/4)]"
+                className="pt-1 pb-2 flex-shrink-0 md:w-[calc((100%-4.5rem)/4)]"
               >
                 <ProductCard product={p} onAdd={onAdd} />
               </div>

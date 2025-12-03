@@ -4,7 +4,7 @@ import { useState } from "react";
 import Icon from "@/components/atoms/Icon/Icon";
 import styles from "./SearchBar.module.css";
 
-export default function SearchBar({ placeholder = "Search...", onSearch }) {
+export default function SearchBar({ placeholder = "Cari Produk...", onSearch }) {
   const [value, setValue] = useState("");
 
   const handleChange = (e) => {
@@ -21,7 +21,7 @@ export default function SearchBar({ placeholder = "Search...", onSearch }) {
         placeholder={placeholder}
         onChange={handleChange}
       />
-      <Icon name="search" className="text-gray-400" size={20} />
+      <Icon name="search" className="text-gray-300" size={20} />
     </div>
   );
 }

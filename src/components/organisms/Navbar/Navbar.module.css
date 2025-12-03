@@ -1,10 +1,25 @@
 .nav {
   background-color: var(--primary-color);
+  font-weight: 700;
 }
 
 .navButton {
-  width: 80px;
+  width: 100px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.navButton:hover {
+  border-bottom: 2px solid #ffffff;
+  background-color: #7200B5;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: inherit !important;
+  color: inherit !important;
+  border-color: inherit !important;
 }

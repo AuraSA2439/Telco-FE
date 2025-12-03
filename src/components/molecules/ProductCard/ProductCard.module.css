@@ -5,3 +5,13 @@
   font-size: 14px;
   font-weight: 700;
 }
+.link {
+  display: block;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.link:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 8px rgba(0, 0, 0, 0.09);
+}

@@ -10,25 +10,25 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className={`w-full h-fit text-white sticky top-0 z-50 ${styles.nav}`}>
+    <nav className={`w-full h-auto text-white sticky top-0 z-50 ${styles.nav}`}>
       <div className="mx-auto flex items-center gap-8 px-6">
         {/* Logo */}
         <Link href="/">
           <img src="/assets/logo.png" alt="Logo" className="w-full"/>
         </Link>
 
-        <div className="w-full h-full flex items-center gap-10">
+        <div className="w-full flex items-center gap-10">
           {/* Desktop Search Bar */}
           <SearchBar onSearch={(value) => console.log("Searching:", value)} />
 
           {/* Desktop Menu */}
-          <div className="w-fit h-full hidden md:flex items-center gap-8">
+          <div className="w-fit h-12 hidden md:flex items-center">
             <Link href="/" className={`${styles.navButton}`}>Beranda</Link>
             <Link href="/products" className={`${styles.navButton}`}>Beli Paket</Link>
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex">
+          <div className="hidden md:flex rounded-lg border-2 border-transparent hover:border-white hover:bg-[#7200B5] transition">
             <Button>Login</Button>
           </div>
 
@@ -46,8 +46,8 @@ export default function Navbar() {
 
       {/* Mobile Dropdown */}
       {open && (
-        <div className="md:hidden px-6 py-2 border-t text-black bg-white animate-fadeIn">
-          <div className="flex flex-col gap-4 font-sans">
+        <div className="md:hidden px-6 py-2 border-t text-[#5B5B5B] bg-white animate-fadeIn">
+          <div className="flex flex-col gap-4">
             <Link href="/" onClick={() => setOpen(false)}>Beranda</Link>
             <Link href="/products" onClick={() => setOpen(false)}>Beli Paket</Link>
 
