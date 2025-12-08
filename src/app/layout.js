@@ -1,5 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import Navbar from "@/components/organisms/Navbar/Navbar";
+import Footer from "@/components/organisms/Footer/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,8 +23,15 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body className={inter.variable}>
-        {children}
+      <body className={`${inter.variable} bg-[#0d0d0d] text-white`}>
+        <Navbar />
+
+        {/* Shared wrapper for all pages */}
+        <main>
+          {children}
+        </main>
+
+        <Footer />
       </body>
     </html>
   );

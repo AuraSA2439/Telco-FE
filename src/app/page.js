@@ -1,44 +1,32 @@
 "use client";
 
-import { useState } from "react";
-import ProductRow from "../components/organisms/ProductRow/ProductRow";
-import ProductGrid from "../components/organisms/ProductGrid/ProductGrid";
-import CardInfo from "../components/organisms/CardInfo/CardInfo";
-import CardPaket from "../components/organisms/CardPaket/CardPaket";
-import Navbar from "../components/organisms/Navbar/Navbar";
-import Footer from "@/components/organisms/Footer/Footer";
-
-const productsData = [
-  { id: 1, price: "Rp. 100.000", image: "/assets/paket1.svg" },
-  { id: 2, price: "Rp. 25.000", image: "/assets/paket2.svg" },
-  { id: 3, price: "Rp. 15.000", image: "/assets/paket3.svg" },
-  { id: 4, price: "Rp. 8.500", image: "/assets/paket4.svg" },
-  { id: 6, price: "Rp. 100.000", image: "/assets/paket1.svg" },
-  { id: 7, price: "Rp. 25.000", image: "/assets/paket2.svg" },
-  { id: 8, price: "Rp. 15.000", image: "/assets/paket3.svg" },
-  { id: 9, price: "Rp. 8.500", image: "/assets/paket4.svg" },
-];
-
-const usersData = [
-  { id: 1, name: "John Doe", email: "john.doe@example.com", phoneNumber: "08123456789" },
-];
+import { useEffect, useState } from "react";
+import ProductRow from "@/components/organisms/ProductRow/ProductRow";
+import ProductGrid from "@/components/organisms/ProductGrid/ProductGrid";
+import CardInfo from "@/components/organisms/CardInfo/CardInfo";
+import CardPaket from "@/components/organisms/CardPaket/CardPaket";
 
 export default function Home() {
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
-  const handleAddToCart = (product) => setCart([...cart, product]);
+  const handleAdd = (product) => setCart([...cart, product]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const res = await fetch("/api/products");
+      const data = await res.json();
+      setProducts(data);
+    }
+    fetchProducts();
+  }, []);
 
   return (
     <>
-      <Navbar />
-      <div className="px-20 py-4 max-w-[800px] mx-auto flex flex-col items-center gap-4">
-        <CardInfo />
-        <CardPaket />
-        <ProductRow products={productsData} onAdd={handleAddToCart} />
-        <ProductGrid products={productsData} onAdd={handleAddToCart} />
-        {/* <CartSidebar cart={cart} /> */}
-      </div>
-      <Footer />
+      <CardInfo />
+      <CardPaket />
+      <ProductRow products={products} onAdd={handleAdd} />
+      <ProductGrid products={products} onAdd={handleAdd} />
     </>
   );
 }
