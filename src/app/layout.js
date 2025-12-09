@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         {/* Shared wrapper for all pages */}
-        <main>
+        <main className="px-20 py-4 max-w-[800px] mx-auto flex flex-col items-center gap-4">
           {children}
         </main>
 
