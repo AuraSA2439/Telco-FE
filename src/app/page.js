@@ -9,10 +9,7 @@ import CardPaket from "@/components/organisms/CardPaket/CardPaket";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const handleAdd = (product) => setCart([...cart, product]);
 
   useEffect(() => {
     async function load() {
@@ -20,13 +17,12 @@ export default function Home() {
         const data = await fetchProducts({
           page: 1,
           limit: 20,
-          sortBy: "price",
-          sortOrder: "asc"
         });
 
+        // Optional slight delay for smoother UX
+        await new Promise((res) => setTimeout(res, 2000));
+
         setProducts(data);
-      } catch (error) {
-        console.error("Load error:", error);
       } finally {
         setLoading(false);
       }
@@ -35,14 +31,19 @@ export default function Home() {
     load();
   }, []);
 
-  if (loading) return <p className="text-white">Loading products...</p>;
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center">
+      </div>
+    );
+  }
 
   return (
     <>
       <CardInfo />
       <CardPaket />
-      <ProductRow products={products} onAdd={handleAdd} />
-      <ProductGrid products={products} onAdd={handleAdd} />
+      <ProductRow products={products} />
+      <ProductGrid products={products} />
     </>
   );
 }

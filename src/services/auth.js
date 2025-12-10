@@ -1,117 +1,93 @@
-const API_BASE_URL = "http://localhost:5000";
-
-// Helper: Build headers with JWT token (if available)
-function authHeaders() {
-  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-  return {
-    "Content-Type": "application/json",
-    Authorization: token ? `Bearer ${token}` : "",
-  };
-}
+import { API_URL } from "./config";
 
 /* ------------------------------------------
-   REGISTER
+   HELPERS
 ------------------------------------------- */
-export async function registerUser({ phoneNumber, pin, name }) {
-  const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phoneNumber, pin, name }),
+function getToken() {
+  return typeof window !== "undefined" ? localStorage.getItem("token") : null;
+}
+
+function saveToken(token) {
+  localStorage.setItem("token", token);
+  document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 3600}`;
+}
+
+function removeToken() {
+  localStorage.removeItem("token");
+  document.cookie = "token=; path=/; max-age=0";
+}
+
+async function request(path, options = {}) {
+  const res = await fetch(`${API_URL}${path}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.auth && { Authorization: `Bearer ${getToken()}` }),
+      ...options.headers,
+    },
+    ...options,
   });
 
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.message);
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(json.message || "Request failed");
 
-  // Save token
-  localStorage.setItem("token", json.data.token);
-  return json.data.user;
+  return json.data ?? json;
 }
 
 /* ------------------------------------------
    LOGIN
 ------------------------------------------- */
 export async function loginUser({ phoneNumber, pin }) {
-  const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+  const data = await request("/api/auth/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ phoneNumber, pin }),
   });
 
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.message);
-
-  // Save JWT
-  localStorage.setItem("token", json.data.token);
-  return json.data.user;
+  saveToken(data.token);
+  return data.user;
 }
 
 /* ------------------------------------------
    CHECK PHONE
 ------------------------------------------- */
-export async function checkPhone(phoneNumber) {
-  const res = await fetch(`${API_BASE_URL}/api/auth/check-phone`, {
+export function checkPhone(phoneNumber) {
+  return request("/api/auth/check-phone", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ phoneNumber }),
   });
-
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.message);
-
-  return json.data;
 }
 
 /* ------------------------------------------
    GET PROFILE
 ------------------------------------------- */
-export async function getProfile() {
-  const res = await fetch(`${API_BASE_URL}/api/auth/profile`, {
-    method: "GET",
-    headers: authHeaders(),
-  });
-
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.message);
-
-  return json.data;
+export function getProfile() {
+  return request("/api/auth/profile", { method: "GET", auth: true });
 }
 
 /* ------------------------------------------
    UPDATE PROFILE
 ------------------------------------------- */
-export async function updateProfile(data) {
-  const res = await fetch(`${API_BASE_URL}/api/auth/profile`, {
+export function updateProfile(data) {
+  return request("/api/auth/profile", {
     method: "PUT",
-    headers: authHeaders(),
+    auth: true,
     body: JSON.stringify(data),
   });
-
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.message);
-
-  return json.data;
 }
 
 /* ------------------------------------------
    CHANGE PIN
 ------------------------------------------- */
-export async function changePin({ oldPin, newPin }) {
-  const res = await fetch(`${API_BASE_URL}/api/auth/change-pin`, {
+export function changePin({ oldPin, newPin }) {
+  return request("/api/auth/change-pin", {
     method: "POST",
-    headers: authHeaders(),
+    auth: true,
     body: JSON.stringify({ oldPin, newPin }),
   });
-
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.message);
-
-  return json;
 }
 
 /* ------------------------------------------
    LOGOUT
 ------------------------------------------- */
 export function logout() {
-  localStorage.removeItem("token");
-  // Optionally call backend logout endpoint (not required)
+  removeToken();
 }

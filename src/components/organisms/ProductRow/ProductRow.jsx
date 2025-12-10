@@ -20,7 +20,7 @@ export default function ProductRow({ products, onAdd }) {
       <CardHeader
         title="Penawaran untuk Mu"
         linkText="Lihat Semua"
-        href="/products"
+        href="/recommendations"
         className="mb-2"
       />
 

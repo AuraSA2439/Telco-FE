@@ -4,20 +4,18 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 // FIXED CATEGORY COLORS
 const categoryColors = {
-  data: { bg: "#89E4FF", text: "#A100FF" },
-  streaming: { bg: "#A100FF", text: "#89E4FF" },
+  data: { bg: "#A100FF", text: "#89E4FF" },
+  streaming: { bg: "#7200B5", text: "#D48AFF" },
   voice: { bg: "#D48AFF", text: "#C9F3FF" },
   sms: { bg: "#61A2B5", text: "#7200B5" },
-  combo: { bg: "#b433ff", text: "#f6e6ff" },
-  vod: { bg: "#e2b0ff", text: "#44006b" },
+  combo: { bg: "#89E4FF", text: "#A100FF" },
   default: { bg: "#daf7ff", text: "#3a606b" },
 };
 
 // ✔ Category → Display Label Mapping
 const displayCategory = {
   data: "Internet",
-  streaming: "Stream",
-  vod: "Video",
+  streaming: "Streaming",
   voice: "Telepon",
   sms: "SMS",
   combo: "Combo",
@@ -27,8 +25,10 @@ const displayCategory = {
 // Format quota
 function formatQuota(dataQuota) {
   if (!dataQuota) return "";
-  if (dataQuota >= 1024) return `${dataQuota / 1024} GB`;
-  return `${dataQuota} MB`;
+  if (dataQuota >= 1024) {
+    return `${Math.ceil(dataQuota / 1024)} GB`;
+  }
+  return `${Math.ceil(dataQuota)} MB`;
 }
 
 export default function PackageImage({

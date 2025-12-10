@@ -1,17 +1,13 @@
-const API_BASE_URL = "https://telco-recommendation-backend-production.up.railway.app";
+import { API_URL } from "./config";
 
 export async function fetchProducts({ page = 1, limit = 20 }) {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/products?page=${page}&limit=${limit}`);
-
-    if (!res.ok) throw new Error("Failed to fetch products");
-
+    const res = await fetch(`${API_URL}/api/products?page=${page}&limit=${limit}`);
     const json = await res.json();
 
-    const products = json?.data || [];
+    if (!res.ok) throw new Error(json.message || "Failed to fetch products");
 
-    // Normalize each product so UI can display them
-    return products.map((p) => ({
+    return (json.data || []).map((p) => ({
       id: p._id,
       name: p.name,
       category: p.category,
@@ -19,9 +15,8 @@ export async function fetchProducts({ page = 1, limit = 20 }) {
       price: `Rp. ${p.price.toLocaleString("id-ID")}`,
       description: p.description,
       specifications: p.specifications,
-      features: p.features
+      features: p.features,
     }));
-
   } catch (err) {
     console.error("fetchProducts error:", err);
     return [];

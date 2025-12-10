@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import Loading from "@/components/atoms/Loading/Loading";
 import Navbar from "@/components/organisms/Navbar/Navbar";
 import Footer from "@/components/organisms/Footer/Footer";
 
@@ -24,6 +25,8 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className={`${inter.variable} bg-[#0d0d0d] text-white`}>
+        <Loading />
+        
         <Navbar />
 
         {/* Shared wrapper for all pages */}
