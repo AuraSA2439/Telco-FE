@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { loginUser } from "@/services/auth";
 import { useRouter } from "next/navigation";
+import CardContainer from "@/components/atoms/CardContainer/CardContainer";
+import Button from "@/components/atoms/Button/Button";
+import Input from "@/components/atoms/Input/Input";
+import Form from "@/components/molecules/Form/Form";
 
 export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -16,36 +20,31 @@ export default function LoginPage() {
 
     try {
       await loginUser({ phoneNumber, pin });
-      router.push("/"); // redirect after login
+      router.push("/");
     } catch (err) {
       setError(err.message);
     }
   }
 
   return (
-    <div className="text-white max-w-sm mx-auto mt-10">
+    <Form onSubmit={handleSubmit}>
       <h1 className="text-2xl font-bold mb-4">Login</h1>
+      <Input
+        placeholder="Phone Number"
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+      />
 
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <input
-          className="bg-[#222] p-3 rounded"
-          placeholder="Phone Number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-        />
+      <Input
+        type="password"
+        placeholder="6-digit PIN"
+        value={pin}
+        onChange={(e) => setPin(e.target.value)}
+      />
 
-        <input
-          className="bg-[#222] p-3 rounded"
-          type="password"
-          placeholder="6-digit PIN"
-          value={pin}
-          onChange={(e) => setPin(e.target.value)}
-        />
+      {error && <p className="text-red-400">{error}</p>}
 
-        {error && <p className="text-red-400">{error}</p>}
-
-        <button className="bg-blue-600 p-3 rounded">Login</button>
-      </form>
-    </div>
+      <Button>Login</Button>
+    </Form>
   );
 }
