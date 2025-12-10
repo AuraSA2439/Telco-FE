@@ -1,18 +1,29 @@
-const API_BASE_URL = "http://localhost:5000"; // Development backend URL
+const API_BASE_URL = "https://telco-recommendation-backend-production.up.railway.app";
 
-export async function fetchProducts(params = {}) {
-  const query = new URLSearchParams(params).toString();
+export async function fetchProducts({ page = 1, limit = 20 }) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/products?page=${page}&limit=${limit}`);
 
-  const res = await fetch(`${API_BASE_URL}/api/products?${query}`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
+    if (!res.ok) throw new Error("Failed to fetch products");
 
-  const json = await res.json();
+    const json = await res.json();
 
-  if (!res.ok) {
-    throw new Error(json.message || "Failed to fetch products");
+    const products = json?.data || [];
+
+    // Normalize each product so UI can display them
+    return products.map((p) => ({
+      id: p._id,
+      name: p.name,
+      category: p.category,
+      rawPrice: p.price,
+      price: `Rp. ${p.price.toLocaleString("id-ID")}`,
+      description: p.description,
+      specifications: p.specifications,
+      features: p.features
+    }));
+
+  } catch (err) {
+    console.error("fetchProducts error:", err);
+    return [];
   }
-
-  return json.data; // backend returns { status, message, data, pagination }
 }

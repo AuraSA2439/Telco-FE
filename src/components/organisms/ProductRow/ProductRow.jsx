@@ -16,7 +16,7 @@ export default function ProductRow({ products, onAdd }) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-[10px] relative mt-2">
+    <div className="w-full max-md:max-h-[280px] flex flex-col gap-[10px] relative mt-2">
       <CardHeader
         title="Penawaran untuk Mu"
         linkText="Lihat Semua"
@@ -29,7 +29,7 @@ export default function ProductRow({ products, onAdd }) {
         {/* LEFT BUTTON */}
         <button
           onClick={scrollLeft}
-          className="hidden md:flex absolute -left-10 top-1/2 -translate-y-1/2 z-10 
+          className="hidden sm:flex absolute -left-10 top-1/2 -translate-y-1/2 z-10 
                      bg-[var(--primary-color)] text-white shadow-md rounded-full p-2"
         >
           ◀
@@ -44,7 +44,7 @@ export default function ProductRow({ products, onAdd }) {
             {products.map((p) => (
               <div
                 key={p.id}
-                className="pt-1 pb-2 flex-shrink-0 md:w-[calc((100%-4.5rem)/4)]"
+                className="pt-1 pb-2 flex-shrink-0 w-[160px] md:w-[calc((100%-4.5rem)/4)]"
               >
                 <ProductCard product={p} onAdd={onAdd} />
               </div>
@@ -55,7 +55,7 @@ export default function ProductRow({ products, onAdd }) {
         {/* RIGHT BUTTON */}
         <button
           onClick={scrollRight}
-          className="hidden md:flex absolute -right-10 top-1/2 -translate-y-1/2 z-10 
+          className="hidden sm:flex absolute -right-10 top-1/2 -translate-y-1/2 z-10 
                      bg-[var(--primary-color)] text-white shadow-md rounded-full p-2"
         >
           ▶
