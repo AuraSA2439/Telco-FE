@@ -1,10 +1,11 @@
 import { API_URL } from "./config";
 
 /* ------------------------------------------
-   HELPERS
+   TOKEN HELPERS
 ------------------------------------------- */
 function getToken() {
-  return typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem("token");
 }
 
 function saveToken(token) {
@@ -17,6 +18,9 @@ function removeToken() {
   document.cookie = "token=; path=/; max-age=0";
 }
 
+/* ------------------------------------------
+   BASE REQUEST
+------------------------------------------- */
 async function request(path, options = {}) {
   const res = await fetch(`${API_URL}${path}`, {
     headers: {
@@ -34,54 +38,42 @@ async function request(path, options = {}) {
 }
 
 /* ------------------------------------------
-   LOGIN
+   OTP LOGIN SYSTEM
 ------------------------------------------- */
-export async function loginUser({ phoneNumber, pin }) {
-  const data = await request("/api/auth/login", {
-    method: "POST",
-    body: JSON.stringify({ phoneNumber, pin }),
-  });
-
-  saveToken(data.token);
-  return data.user;
-}
-
-/* ------------------------------------------
-   CHECK PHONE
-------------------------------------------- */
-export function checkPhone(phoneNumber) {
-  return request("/api/auth/check-phone", {
+export async function requestOtp(phoneNumber) {
+  return request("/api/auth/request-otp", {
     method: "POST",
     body: JSON.stringify({ phoneNumber }),
   });
 }
 
-/* ------------------------------------------
-   GET PROFILE
-------------------------------------------- */
-export function getProfile() {
-  return request("/api/auth/profile", { method: "GET", auth: true });
+export async function verifyOtp({ phoneNumber, otp }) {
+  const result = await request("/api/auth/verify-otp", {
+    method: "POST",
+    body: JSON.stringify({ phoneNumber, otp }),
+  });
+
+  // Save token
+  if (result.token) saveToken(result.token);
+
+  return result;
 }
 
 /* ------------------------------------------
-   UPDATE PROFILE
+   PROFILE
 ------------------------------------------- */
+export function getProfile() {
+  return request("/api/auth/profile", {
+    method: "GET",
+    auth: true,
+  });
+}
+
 export function updateProfile(data) {
   return request("/api/auth/profile", {
     method: "PUT",
     auth: true,
     body: JSON.stringify(data),
-  });
-}
-
-/* ------------------------------------------
-   CHANGE PIN
-------------------------------------------- */
-export function changePin({ oldPin, newPin }) {
-  return request("/api/auth/change-pin", {
-    method: "POST",
-    auth: true,
-    body: JSON.stringify({ oldPin, newPin }),
   });
 }
 
