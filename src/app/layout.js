@@ -39,6 +39,7 @@ export default function RootLayout({ children }) {
                 {children}
               </main>
             </PageWrapper>
+            
           </div>
         </LoadingProvider>
 

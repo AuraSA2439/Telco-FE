@@ -24,13 +24,13 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="w-fit h-12 hidden md:flex items-center">
             <Link href="/" className={`${styles.navButton}`}>Beranda</Link>
-            <Link href="/products" className={`${styles.navButton}`}>Beli Paket</Link>
+            <Link href="/recommendations" className={`${styles.navButton}`}>Beli Paket</Link>
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex rounded-lg border-2 border-transparent hover:border-white hover:bg-[#7200B5] transition">
+          <Link href="/login" className="hidden md:flex rounded-lg border-2 border-transparent hover:border-white hover:bg-[#7200B5] transition">
             <Button>Login</Button>
-          </div>
+          </Link>
 
           {/* Mobile Menu Toggle */}
           <button
@@ -49,9 +49,11 @@ export default function Navbar() {
         <div className="md:hidden px-6 py-2 border-t text-[#5B5B5B] bg-white animate-fadeIn">
           <div className="flex flex-col gap-4">
             <Link href="/" onClick={() => setOpen(false)}>Beranda</Link>
-            <Link href="/products" onClick={() => setOpen(false)}>Beli Paket</Link>
+            <Link href="/recommendations" onClick={() => setOpen(false)}>Beli Paket</Link>
 
-            <Button className="w-full mt-4">Login</Button>
+            <Link href="/login">
+              <Button className="w-full mt-4">Login</Button>
+            </Link>
           </div>
         </div>
       )}
