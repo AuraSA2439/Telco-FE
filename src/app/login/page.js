@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { loginUser } from "@/services/auth";
 import { useRouter } from "next/navigation";
-import CardContainer from "@/components/atoms/CardContainer/CardContainer";
 import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input/Input";
 import Form from "@/components/molecules/Form/Form";
@@ -28,7 +27,7 @@ export default function LoginPage() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h1 className="text-2xl font-bold mb-4">Login</h1>
+      <h1 className="text-2xl font-bold text-[var(--primary-color)] border-b-2 border-[var(--neutral-color)] pt-1 pb-3">Login</h1>
       <Input
         placeholder="Phone Number"
         value={phoneNumber}
