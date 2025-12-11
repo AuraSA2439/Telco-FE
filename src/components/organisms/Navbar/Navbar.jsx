@@ -16,28 +16,27 @@ export default function Navbar() {
   const dropdownRef = useRef(null);
   const router = useRouter();
 
-  // Fetch profile to detect login
+  /* Load user profile on mount */
   useEffect(() => {
-    async function loadProfile() {
+    (async () => {
       try {
         const profile = await getProfile();
         setUser(profile);
       } catch {
         setUser(null);
       }
-    }
-    loadProfile();
+    })();
   }, []);
 
-  // Close dropdown when clicking outside
+  /* Close dropdown when clicking outside */
   useEffect(() => {
-    function handleClickOutside(e) {
+    const handleClick = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDropdownOpen(false);
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
   function handleLogout() {
@@ -47,25 +46,29 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`w-full h-auto text-white sticky top-0 z-50 ${styles.nav}`}>
-      <div className="mx-auto flex items-center gap-8 px-6">
-        {/* Logo */}
-        <Link href="/">
-          <img src="/assets/logo.png" alt="Logo" className="w-full" />
+    <nav className={`w-full sticky top-0 z-50 text-white ${styles.nav}`}>
+      <div className="mx-auto flex items-center px-4 py-2">
+        <Link href="/" className="flex-shrink-0 mr-4">
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            className="h-12 w-auto md:h-14"   // Larger logo
+          />
         </Link>
 
-        <div className="w-full flex items-center gap-10">
+        <div className="flex items-center gap-3 md:gap-8 w-full justify-end">
 
-          {/* Desktop Search */}
-          <SearchBar />
+          <div className="hidden md:block flex-1">
+            <SearchBar />
+          </div>
 
-          {/* Desktop Menu */}
-          <div className="w-fit h-12 hidden md:flex items-center">
+          {/* DESKTOP MENU */}
+          <div className="hidden md:flex gap-6">
             <Link href="/" className={styles.navButton}>Beranda</Link>
             <Link href="/recommendations" className={styles.navButton}>Beli Paket</Link>
           </div>
 
-          {/* Desktop: Login or Profile */}
+          {/* DESKTOP LOGIN / PROFILE */}
           <div className="hidden md:flex relative" ref={dropdownRef}>
             {!user ? (
               <Link href="/login">
@@ -74,14 +77,19 @@ export default function Navbar() {
             ) : (
               <>
                 <button
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="px-4 py-2 bg-purple-700 hover:bg-purple-800 rounded-lg transition"
+                  onClick={() => setDropdownOpen((prev) => !prev)}
+                  className="flex flex-col items-start px-3 py-2 rounded-lg hover:bg-purple-800 transition"
                 >
-                  {user.phoneNumber || "Profile"}
+                  <span className="font-semibold">
+                    {user.name || "User"}
+                  </span>
+                  <span className="text-sm opacity-80">
+                    {user.phoneNumber || "Phone"}
+                  </span>
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg py-2 animate-fadeIn">
+                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg py-2">
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 hover:bg-gray-100"
@@ -94,21 +102,21 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* MOBILE MENU BUTTON */}
           <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden p-2 rounded-lg hover:bg-purple-800 transition flex items-center justify-center"
+            onClick={() => setOpen((prev) => !prev)}
+            className="md:hidden p-2 rounded-lg hover:bg-purple-800 flex-shrink-0"
           >
-            <span className="material-symbols-outlined text-[24px]">
+            <span className="material-symbols-outlined text-3xl">
               {open ? "close" : "menu"}
             </span>
           </button>
+
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
       {open && (
-        <div className="md:hidden px-6 py-2 border-t text-[#5B5B5B] bg-white animate-fadeIn">
+        <div className="md:hidden px-6 py-3 border-t bg-white text-[#5B5B5B] animate-fadeIn">
           <div className="flex flex-col gap-4">
 
             <Link href="/" onClick={() => setOpen(false)}>Beranda</Link>
@@ -129,7 +137,6 @@ export default function Navbar() {
                 Logout
               </button>
             )}
-
           </div>
         </div>
       )}

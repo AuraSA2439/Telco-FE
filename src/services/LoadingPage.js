@@ -9,13 +9,10 @@ export function LoadingProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
 
-  // Trigger loading when route changes
   useEffect(() => {
-    // setLoading(true);
-
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // adjust duration
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [pathname]);

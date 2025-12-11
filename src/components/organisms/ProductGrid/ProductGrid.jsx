@@ -3,7 +3,7 @@ import CardHeader from "../../atoms/CardHeader/CardHeader";
 
 export default function ProductGrid({ products, onAdd }) {
   return (
-    <div className="w-full flex flex-col gap-[10px]">
+    <div className="w-full flex flex-col gap-[10px] mb-10">
       <CardHeader title="Jelajahi Lebih Lanjut" linkText="Lihat Semua" href="/recommedations" className="mb-4"></CardHeader>
       <div className="grid w-full pt-1 grid-cols-1 md:grid-cols-4 gap-6">
         {products.map((p) => (
