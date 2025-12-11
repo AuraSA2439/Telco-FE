@@ -30,16 +30,13 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         <LoadingProvider>
-          {/* This wrapper holds page content AND loading overlay */}
           <div className="relative flex-1">
             <Loading />
-
             <PageWrapper>
               <main className="px-20 py-4 max-w-[800px] mx-auto flex flex-col items-center gap-4">
                 {children}
               </main>
             </PageWrapper>
-            
           </div>
         </LoadingProvider>
 

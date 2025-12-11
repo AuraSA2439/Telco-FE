@@ -17,37 +17,50 @@ function removeToken() {
   document.cookie = "token=; path=/; max-age=0";
 }
 
+/* ------------------------------------------
+   REQUEST WRAPPER
+------------------------------------------- */
 async function request(path, options = {}) {
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.auth && { Authorization: `Bearer ${getToken()}` }),
+    ...(options.headers || {}),
+  };
+
   const res = await fetch(`${API_URL}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.auth && { Authorization: `Bearer ${getToken()}` }),
-      ...options.headers,
-    },
     ...options,
+    headers,
   });
 
   const json = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(json.message || "Request failed");
+
+  if (!res.ok) {
+    throw new Error(json.message || "Request failed");
+  }
 
   return json.data ?? json;
 }
 
 /* ------------------------------------------
-   LOGIN
+   LOGIN (Simple Login)
 ------------------------------------------- */
-export async function loginUser({ phoneNumber, pin }) {
+export async function loginUser({ phoneNumber, name }) {
   const data = await request("/api/auth/login", {
     method: "POST",
-    body: JSON.stringify({ phoneNumber, pin }),
+    body: JSON.stringify({
+      phoneNumber,
+      ...(name && { name }),
+    }),
   });
 
+  // API returns: { user: {...}, token: "..." }
   saveToken(data.token);
+
   return data.user;
 }
 
 /* ------------------------------------------
-   CHECK PHONE
+   CHECK PHONE 
 ------------------------------------------- */
 export function checkPhone(phoneNumber) {
   return request("/api/auth/check-phone", {
@@ -57,37 +70,12 @@ export function checkPhone(phoneNumber) {
 }
 
 /* ------------------------------------------
-   GET PROFILE
-------------------------------------------- */
-export function getProfile() {
-  return request("/api/auth/profile", { method: "GET", auth: true });
-}
-
-/* ------------------------------------------
-   UPDATE PROFILE
-------------------------------------------- */
-export function updateProfile(data) {
-  return request("/api/auth/profile", {
-    method: "PUT",
-    auth: true,
-    body: JSON.stringify(data),
-  });
-}
-
-/* ------------------------------------------
-   CHANGE PIN
-------------------------------------------- */
-export function changePin({ oldPin, newPin }) {
-  return request("/api/auth/change-pin", {
-    method: "POST",
-    auth: true,
-    body: JSON.stringify({ oldPin, newPin }),
-  });
-}
-
-/* ------------------------------------------
    LOGOUT
 ------------------------------------------- */
 export function logout() {
   removeToken();
+}
+
+export function getProfile() {
+  return request("/api/auth/profile", { auth: true });
 }
