@@ -24,13 +24,13 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body className={`${inter.variable} bg-[#0d0d0d] text-white`}>
+      <body className={`${inter.variable} min-h-screen flex flex-col`}>
         <Loading />
         
         <Navbar />
 
         {/* Shared wrapper for all pages */}
-        <main className="px-20 py-4 max-w-[800px] mx-auto flex flex-col items-center gap-4">
+        <main className="px-20 py-4 max-w-[800px] flex-1 mx-auto flex flex-col items-center gap-4">
           {children}
         </main>
 

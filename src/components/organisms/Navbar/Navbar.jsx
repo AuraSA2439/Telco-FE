@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "@/components/atoms/Button/Button";
+import Button from "@/components/atoms/Button/Button";
 import SearchBar from "@/components/atoms/SearchBar/SearchBar";
 import styles from "./Navbar.module.css";
 
