@@ -1,26 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { Riple } from "react-loading-indicators";
+import { useGlobalLoading } from "@/services/LoadingPage";
 
 export default function Loading() {
-  const pathname = usePathname();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000); 
-
-    return () => clearTimeout(timer);
-  }, [pathname]);
+  const { loading } = useGlobalLoading();
 
   if (!loading) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-[9999]">
+    <div className="absolute inset-0 flex items-center justify-center z-50">
       <Riple color="var(--primary-color)" size="60px" />
     </div>
   );

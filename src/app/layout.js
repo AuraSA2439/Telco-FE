@@ -1,5 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { LoadingProvider } from "@/services/LoadingPage";
+import PageWrapper from "@/components/atoms/PageWrapper/PageWrapper";
 import Loading from "@/components/atoms/Loading/Loading";
 import Navbar from "@/components/organisms/Navbar/Navbar";
 import Footer from "@/components/organisms/Footer/Footer";
@@ -25,14 +27,20 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className={`${inter.variable} min-h-screen flex flex-col`}>
-        <Loading />
-        
         <Navbar />
 
-        {/* Shared wrapper for all pages */}
-        <main className="px-20 py-4 max-w-[800px] flex-1 mx-auto flex flex-col items-center gap-4">
-          {children}
-        </main>
+        <LoadingProvider>
+          {/* This wrapper holds page content AND loading overlay */}
+          <div className="relative flex-1">
+            <Loading />
+
+            <PageWrapper>
+              <main className="px-20 py-4 max-w-[800px] mx-auto flex flex-col items-center gap-4">
+                {children}
+              </main>
+            </PageWrapper>
+          </div>
+        </LoadingProvider>
 
         <Footer />
       </body>
