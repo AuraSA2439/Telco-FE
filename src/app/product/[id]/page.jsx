@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 
 import { fetchProductById } from "@/services/products";
@@ -10,6 +9,7 @@ import { fetchProductById } from "@/services/products";
 // Components
 import { Badge } from "@/components/atoms/Badge/Badge";
 import Button from "@/components/atoms/Button/Button";
+import PackageImage from "@/components/atoms/PackageImage/PackageImage";
 import CardContainer from "@/components/atoms/CardContainer/CardContainer";
 import CardHeader from "@/components/atoms/CardHeader/CardHeader";
 
@@ -41,6 +41,14 @@ export default function ProductDetailPage() {
         titleClass="text-[var(--primary-color)]"
         linkClass="text-[#777777]"
       />
+      <div className="mt-4 flex flex-col gap-4">
+      <PackageImage 
+        width="100%" 
+        height="100%"
+        className="flex flex-col aligns-center justify-center"
+        product={product}
+      />
+      </div>
     </CardContainer>
   );
 }

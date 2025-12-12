@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 12px;
+  padding: 16px;
+  font-weight: 700;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.small {
+  width: 100%;
+  height: 120.67px;
+  aspect-ratio: 1 / 1; 
+  padding: 24px;
+}
+
+.big {
+  width: 100%;
+  height: 260px;
+  padding: 24px;
+}
+
+.type {
+  line-height: 1;
+  display: block;
+  color: #fff;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  color: inherit; 
+  word-break: break-word;
+}
+
+.validity {
+  display: block;
+  line-height: 1;
+  opacity: 0.8;
+  color: #000;
+}
+
+@media (max-width: 640px) {
+  .small {
+    height: 110px;
+    padding: 18px;
+  }
+  .big {
+    height: 220px;
+  }
+}

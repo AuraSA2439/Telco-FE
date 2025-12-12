@@ -71,7 +71,6 @@ export default function PackageImage({
   const voice = specs.voiceMinutes ? `${specs.voiceMinutes} Menit` : "";
   const validity = specs.validity ? `${specs.validity} Hari` : "";
 
-  // ⭐ Apply rule: “Global Coverage” → “Global”
   let roamingCountry =
     category === "roaming" && roaming?.countries?.length > 0
       ? roaming.countries[0]
