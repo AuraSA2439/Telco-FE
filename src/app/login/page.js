@@ -37,11 +37,11 @@ export default function LoginPage() {
         onChange={(e) => setPhoneNumber(e.target.value)}
       />
 
-       <Input
+       {/* <Input
         placeholder="Name (optional)"
         value={name}
         onChange={(e) => setName(e.target.value)}
-      />
+      /> */}
 
       {error && <p className="text-red-400">{error}</p>}
 

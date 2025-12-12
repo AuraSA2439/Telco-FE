@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Icon from "@/components/atoms/Icon/Icon";
 import { useState, useEffect, useRef } from "react";
 import Button from "@/components/atoms/Button/Button";
 import SearchBar from "@/components/atoms/SearchBar/SearchBar";
@@ -48,7 +49,7 @@ export default function Navbar() {
   return (
     <nav className={`w-full sticky top-0 z-50 text-white ${styles.nav}`}>
       <div className="mx-auto flex items-center px-4">
-        <Link href="/" className="flex-shrink-0 mr-4">
+        <Link href="/" className="w-70 flex-shrink-0 ml-4">
           <img
             src="/assets/logo.png"
             alt="Logo"
@@ -78,9 +79,9 @@ export default function Navbar() {
               <>
                 <button
                   onClick={() => setDropdownOpen((prev) => !prev)}
-                  className="flex flex-col items-start px-3 py-2 rounded-lg hover:bg-purple-800 transition"
+                  className="flex flex-col items-start px-4 py-2 mx-3 border-x-2 border-white hover:bg-purple-800 transition"
                 >
-                  <span className="font-semibold">
+                  <span className="font-bold">
                     {user.name || "User"}
                   </span>
                   <span className="text-sm opacity-80">
@@ -89,10 +90,11 @@ export default function Navbar() {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg py-2">
+                  <div className="absolute top-13 right-0 w-40 px-2 bg-white text-red-500 flex items-center rounded-lg shadow-lg overflow-hidden hover:bg-grey-700">
+                    <Icon name="logout" size={24} />
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                      className="w-full text-left px-4 py-2"
                     >
                       Logout
                     </button>
