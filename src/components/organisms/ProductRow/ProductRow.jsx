@@ -21,6 +21,8 @@ export default function ProductRow({ products, onAdd }) {
         title="Penawaran untuk Mu"
         linkText="Lihat Semua"
         href="/recommendations"
+        titleClass="text-[var(--secondary-color)]"
+        linkClass="text-[var(--primary-color)]"
         className="mb-2"
       />
 

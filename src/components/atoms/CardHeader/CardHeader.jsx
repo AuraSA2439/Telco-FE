@@ -6,14 +6,17 @@ export default function CardHeader({
   title, 
   linkText, 
   href = "#", 
-  className = "", 
+  className = "",
+  titleClass = "",
+  linkClass = "",
   style = {} 
 }) {
   return (
     <div className="border-solid border-b-2 border-[var(--neutral-color)]">
       <div className={`${styles.container} ${className}`} style={style}>
-        <h2>{title}</h2>
-        <Link href={href} className={`${styles.link}`}>
+        <h2 className={titleClass}>{title}</h2>
+
+        <Link href={href} className={`${styles.link} ${linkClass}`}>
           {linkText}
           <Icon name="arrow_forward_ios" className="inherit-color" size={14} />
         </Link>

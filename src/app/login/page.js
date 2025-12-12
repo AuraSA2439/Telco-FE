@@ -9,7 +9,7 @@ import Form from "@/components/molecules/Form/Form";
 
 export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [name, setName] = useState(""); // optional
+  // const [name, setName] = useState(""); // optional
   const [error, setError] = useState("");
   const router = useRouter();
 
