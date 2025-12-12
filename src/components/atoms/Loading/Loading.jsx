@@ -1,7 +1,7 @@
 "use client";
 
 import { Riple } from "react-loading-indicators";
-import { useGlobalLoading } from "@/services/LoadingPage";
+import { useGlobalLoading } from "@/services/loading";
 
 export default function Loading() {
   const { loading } = useGlobalLoading();

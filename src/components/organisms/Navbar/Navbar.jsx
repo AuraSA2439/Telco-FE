@@ -47,12 +47,12 @@ export default function Navbar() {
 
   return (
     <nav className={`w-full sticky top-0 z-50 text-white ${styles.nav}`}>
-      <div className="mx-auto flex items-center px-4 py-2">
+      <div className="mx-auto flex items-center px-4">
         <Link href="/" className="flex-shrink-0 mr-4">
           <img
             src="/assets/logo.png"
             alt="Logo"
-            className="h-12 w-auto md:h-14"   // Larger logo
+            className="h-12 w-auto md:h-14" 
           />
         </Link>
 
@@ -63,7 +63,7 @@ export default function Navbar() {
           </div>
 
           {/* DESKTOP MENU */}
-          <div className="hidden md:flex gap-6">
+          <div className="hidden md:flex h-10 gap-4">
             <Link href="/" className={styles.navButton}>Beranda</Link>
             <Link href="/recommendations" className={styles.navButton}>Beli Paket</Link>
           </div>
@@ -105,7 +105,7 @@ export default function Navbar() {
           {/* MOBILE MENU BUTTON */}
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="md:hidden p-2 rounded-lg hover:bg-purple-800 flex-shrink-0"
+            className="md:hidden p-2 rounded-lg flex items-center hover:bg-purple-800 flex-shrink-0"
           >
             <span className="material-symbols-outlined text-3xl">
               {open ? "close" : "menu"}
@@ -119,12 +119,18 @@ export default function Navbar() {
         <div className="md:hidden px-6 py-3 border-t bg-white text-[#5B5B5B] animate-fadeIn">
           <div className="flex flex-col gap-4">
 
-            <Link href="/" onClick={() => setOpen(false)}>Beranda</Link>
-            <Link href="/recommendations" onClick={() => setOpen(false)}>Beli Paket</Link>
+            <Link href="/" onClick={() => setOpen(false)}
+            className="px-2 border-[var(--secondary-color)] hover:border-l-3 hover:text-[18px] transition">
+              Beranda
+            </Link>
+            <Link href="/recommendations" onClick={() => setOpen(false)}
+            className="px-2 border-[var(--secondary-color)] hover:border-l-3 hover:text-[18px] transition">
+              Beli Paket
+            </Link>
 
             {!user ? (
               <Link href="/login" onClick={() => setOpen(false)}>
-                <Button className="w-full mt-4">Login</Button>
+                <Button className="w-full mt-2">Login</Button>
               </Link>
             ) : (
               <button

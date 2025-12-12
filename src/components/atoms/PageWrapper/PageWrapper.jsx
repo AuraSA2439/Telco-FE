@@ -1,6 +1,6 @@
 "use client";
 
-import { useGlobalLoading } from "@/services/LoadingPage";
+import { useGlobalLoading } from "@/services/loading";
 
 export default function PageWrapper({ children }) {
   const { loading } = useGlobalLoading();

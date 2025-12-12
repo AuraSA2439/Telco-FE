@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { LoadingProvider } from "@/services/LoadingPage";
+import { LoadingProvider } from "@/services/loading";
 import PageWrapper from "@/components/atoms/PageWrapper/PageWrapper";
 import Loading from "@/components/atoms/Loading/Loading";
 import Navbar from "@/components/organisms/Navbar/Navbar";
