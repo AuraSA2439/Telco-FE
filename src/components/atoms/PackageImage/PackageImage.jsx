@@ -92,7 +92,7 @@ export default function PackageImage({
         backgroundColor: colors.bg,
         color: colors.text,
       }}
-      className="w-full h-[120.67px] aspect-square flex flex-col font-bold rounded-lg p-6 md:px-4 md:py-2 select-none overflow-hidden"
+      className="w-full aspect-square flex flex-col font-bold rounded-lg p-6 md:px-4 md:py-2 select-none overflow-hidden"
     >
       <span
         style={{
