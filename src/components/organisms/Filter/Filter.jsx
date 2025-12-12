@@ -41,6 +41,7 @@ export default function RecommendationFilter({ filter, onChange }) {
         <option value={15}>15 Produk</option>
         <option value={20}>20 Produk</option>
       </select>
+
     </div>
   );
 }
