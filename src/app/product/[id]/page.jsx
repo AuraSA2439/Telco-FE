@@ -12,6 +12,7 @@ import Button from "@/components/atoms/Button/Button";
 import PackageImage from "@/components/atoms/PackageImage/PackageImage";
 import CardContainer from "@/components/atoms/CardContainer/CardContainer";
 import CardHeader from "@/components/atoms/CardHeader/CardHeader";
+import TextTitle from "@/components/atoms/TextTitle/TextTitle";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -42,12 +43,74 @@ export default function ProductDetailPage() {
         linkClass="text-[#777777]"
       />
       <div className="mt-4 flex flex-col gap-4">
-      <PackageImage 
-        width="100%" 
-        height="100%"
-        className="flex flex-col aligns-center justify-center"
-        product={product}
-      />
+        <PackageImage 
+          width="100%" 
+          height="100%"
+          className="flex flex-col aligns-center justify-center"
+          product={product}
+        />
+        <div className="flex flex-col gap-2 text-[#777777]">
+          <TextTitle 
+            title="Tentang"
+            titleClass="text-[20px] font-medium"
+          />
+          <p className="text-[14px] px-1">
+            {product.description}
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 text-[#777777]">
+          <TextTitle 
+            title="Rincian"
+            titleClass="text-[20px] font-medium"
+          />
+
+          <div className="px-1 text-[14px] flex flex-col gap-2">
+
+            {/* Kuota Internet */}
+            {product.specifications?.dataQuota && (
+              <p>
+                <span className="font-semibold">Kuota Internet:</span>{" "}
+                {Math.ceil(product.specifications.dataQuota / 1024)} GB
+              </p>
+            )}
+
+            {/* Menit Telepon */}
+            {product.specifications?.voiceMinutes && (
+              <p>
+                <span className="font-semibold">Menit Telepon:</span>{" "}
+                {product.specifications.voiceMinutes === 999999
+                  ? "Unlimited"
+                  : `${product.specifications.voiceMinutes} Menit`}
+              </p>
+            )}
+
+            {/* Masa Berlaku */}
+            {product.specifications?.validity && (
+              <p>
+                <span className="font-semibold">Masa Berlaku:</span>{" "}
+                {product.specifications.validity} Hari
+              </p>
+            )}
+
+            {/* Roaming */}
+            {product.specifications?.roaming && (
+              <p>
+                <span className="font-semibold">Roaming:</span>{" "}
+                {product.specifications.roaming.isAvailable
+                  ? product.specifications.roaming.countries.length > 0
+                    ? product.specifications.roaming.countries.join(", ")
+                    : "Tersedia"
+                  : "Tidak Tersedia"}
+              </p>
+            )}
+          </div>
+        </div>
+        <div className="py-2 px-1 border-t-2 border-[#9A9A9A] text-[20px] text-[#5B5B5B] font-bold">
+          {product.price}
+        </div>
+      </div>
+      <div className="py-2 flex justify-end">
+        <Button />
       </div>
     </CardContainer>
   );
