@@ -7,7 +7,7 @@ export default function ProductGrid({ products, onAdd }) {
       <CardHeader 
       title="Jelajahi Lebih Lanjut" 
       linkText="Lihat Semua"
-      href="/recommedations"  
+      href="/recommendations"  
       titleClass="text-[var(--secondary-color)]"
       linkClass="text-[var(--primary-color)]"
       className="mb-4"

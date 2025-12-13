@@ -10,7 +10,7 @@ function getToken() {
   );
 }
 
-export async function fetchRecommendations({ algorithm = "hybrid", limit = 10 }) {
+export async function fetchRecommendations({ algorithm = "hybrid", limit = 50 }) {
   const token = getToken();
 
   if (!token) {
@@ -28,7 +28,8 @@ export async function fetchRecommendations({ algorithm = "hybrid", limit = 10 })
 
   const json = await res.json().catch(() => ({}));
 
-  if (!res.ok) throw new Error(json.message || "Failed to fetch recommendations");
+  if (!res.ok)
+    throw new Error(json.message || "Failed to fetch recommendations");
 
   return (json?.data?.recommendations || [])
     .map((r) => r?.product || r)
