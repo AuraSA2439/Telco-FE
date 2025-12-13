@@ -14,10 +14,14 @@ import CardContainer from "@/components/atoms/CardContainer/CardContainer";
 import CardHeader from "@/components/atoms/CardHeader/CardHeader";
 import TextTitle from "@/components/atoms/TextTitle/TextTitle";
 
+function formatQuota(mb) {
+  if (!mb) return null;
+  if (mb === 999999) return "Unlimited";
+  return `${Math.ceil(mb / 1024)} GB`;
+}
+
 export default function ProductDetailPage() {
   const { id } = useParams();
-
-  // product loading ONLY controls data, not UI spinner
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
@@ -32,6 +36,9 @@ export default function ProductDetailPage() {
   }, [id]);
 
   if (!product) return null;
+
+  const specs = product.specifications || {};
+  const roaming = specs.roaming || {};
 
   return (
     <CardContainer size="big" className="bg-[#FBFBFB]">
@@ -66,39 +73,51 @@ export default function ProductDetailPage() {
 
           <div className="px-1 text-[14px] flex flex-col gap-2">
 
-            {/* Kuota Internet */}
-            {product.specifications?.dataQuota && (
+            {specs.dataQuota && (
               <p>
                 <span className="font-semibold">Kuota Internet:</span>{" "}
-                {Math.ceil(product.specifications.dataQuota / 1024)} GB
+                {formatQuota(specs.dataQuota)}
               </p>
             )}
 
-            {/* Menit Telepon */}
-            {product.specifications?.voiceMinutes && (
+            {specs.videoDataQuota && (
               <p>
-                <span className="font-semibold">Menit Telepon:</span>{" "}
-                {product.specifications.voiceMinutes === 999999
-                  ? "Unlimited"
-                  : `${product.specifications.voiceMinutes} Menit`}
+                <span className="font-semibold">Kuota Video:</span>{" "}
+                {formatQuota(specs.videoDataQuota)}
               </p>
             )}
 
-            {/* Masa Berlaku */}
-            {product.specifications?.validity && (
+            {specs.voiceMinutes && (
+              <p>
+                <span className="font-semibold">Telepon:</span>{" "}
+                {specs.voiceMinutes === 999999
+                  ? "Unlimited"
+                  : `${specs.voiceMinutes} Menit`}
+              </p>
+            )}
+
+            {specs.smsCount && (
+              <p>
+                <span className="font-semibold">SMS:</span>{" "}
+                {specs.smsCount === 999999
+                  ? "Unlimited"
+                  : `${specs.smsCount} SMS`}
+              </p>
+            )}
+
+            {specs.validity && (
               <p>
                 <span className="font-semibold">Masa Berlaku:</span>{" "}
-                {product.specifications.validity} Hari
+                {specs.validity} Hari
               </p>
             )}
 
-            {/* Roaming */}
-            {product.specifications?.roaming && (
+            {roaming && (
               <p>
                 <span className="font-semibold">Roaming:</span>{" "}
-                {product.specifications.roaming.isAvailable
-                  ? product.specifications.roaming.countries.length > 0
-                    ? product.specifications.roaming.countries.join(", ")
+                {roaming.isAvailable
+                  ? roaming.countries.length > 0
+                    ? roaming.countries.join(", ")
                     : "Tersedia"
                   : "Tidak Tersedia"}
               </p>
@@ -109,8 +128,8 @@ export default function ProductDetailPage() {
           {product.price}
         </div>
       </div>
-      <div className="py-2 flex justify-end">
-        <Button />
+      <div className="py-2 flex justify-end font-bold">
+        <Button>Beli Sekarang</Button>
       </div>
     </CardContainer>
   );
