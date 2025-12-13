@@ -4,19 +4,20 @@ export default function RecommendationFilter({ filter, onChange }) {
   return (
     <div className="w-full flex flex-wrap gap-4 mb-4">
 
-      {/* Paket Category (FE only) */}
+      {/* Paket Category (FE only, SINKRON dengan BE) */}
       <select
         className="bg-[#1a1a1a] text-white px-3 py-2 rounded"
         value={filter.category}
         onChange={(e) => onChange({ category: e.target.value })}
       >
         <option value="all">Semua Paket</option>
-        <option value="internet">Internet</option>
-        <option value="data">Data</option>
+        <option value="data">Data / Internet</option>
+        <option value="voice">Voice</option>
         <option value="streaming">Streaming</option>
+        <option value="combo">Combo</option>
       </select>
 
-      {/* Limit */}
+      {/* Limit (mengontrol jumlah hasil dari BE) */}
       <select
         className="bg-[#1a1a1a] text-white px-3 py-2 rounded"
         value={filter.limit}
@@ -28,7 +29,7 @@ export default function RecommendationFilter({ filter, onChange }) {
         <option value={20}>20 produk</option>
       </select>
 
-      {/* Algorithm (optional, advanced) */}
+      {/* Algorithm (langsung dikirim ke BE / ML) */}
       <select
         className="bg-[#1a1a1a] text-white px-3 py-2 rounded"
         value={filter.algorithm}
