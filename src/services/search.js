@@ -16,6 +16,8 @@ export function SearchProvider({ children }) {
 
 export function useSearch() {
   const ctx = useContext(SearchContext);
-  if (!ctx) throw new Error("useSearch must be used inside SearchProvider");
+  if (!ctx) {
+    throw new Error("useSearch must be used inside SearchProvider");
+  }
   return ctx;
 }

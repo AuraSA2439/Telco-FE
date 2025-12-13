@@ -1,33 +1,41 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Icon from "@/components/atoms/Icon/Icon";
 import styles from "./SearchBar.module.css";
 
 export default function SearchBar({
   placeholder = "Cari Produk...",
-  onSearch,
 }) {
   const [value, setValue] = useState("");
+  const router = useRouter();
 
-  const handleChange = (e) => {
-    const v = e.target.value;
-    setValue(v);
-    onSearch?.(v);
+  const triggerSearch = () => {
+    const q = value.trim();
+    if (!q) return;
+    router.push(`/products?q=${encodeURIComponent(q)}`);
   };
 
   return (
-    <div
-      className={`${styles.searchBar} w-full max-w-[800px] rounded-full flex items-center gap-2 text-gray-400`}
-    >
+    <div className={`${styles.searchBar} w-full rounded-full flex items-center gap-2`}>
       <input
         type="text"
         className="w-full outline-none bg-transparent"
         value={value}
         placeholder={placeholder}
-        onChange={handleChange}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            triggerSearch();
+          }
+        }}
       />
-      <Icon name="search" className="text-gray-300" size={20} />
+
+      <button onClick={triggerSearch} aria-label="Search">
+        <Icon name="search" size={20} />
+      </button>
     </div>
   );
 }
