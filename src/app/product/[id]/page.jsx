@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
 import { fetchProductById } from "@/services/products";
+import { formatQuota } from "@/utils/formatQuota";
 
 // Components
 import Button from "@/components/atoms/Button/Button";
@@ -11,12 +12,6 @@ import PackageImage from "@/components/atoms/PackageImage/PackageImage";
 import CardContainer from "@/components/atoms/CardContainer/CardContainer";
 import CardHeader from "@/components/atoms/CardHeader/CardHeader";
 import TextTitle from "@/components/atoms/TextTitle/TextTitle";
-
-function formatQuota(mb) {
-  if (!mb) return null;
-  if (mb === 999999) return "Unlimited";
-  return `${Math.ceil(mb / 1024)} GB`;
-}
 
 export default function ProductDetailPage() {
   const { id } = useParams();

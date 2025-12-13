@@ -6,10 +6,10 @@ export default function InfoKartu({ kartu }) {
     <div className={`${styles.wrapper}`}>
       <div className={`${styles.title}`}>
         <h2>{kartu.number}</h2>
-        <Badge>{kartu.status}</Badge>
+        <Badge>{kartu.planType}</Badge>
       </div>
       <div className={`${styles.description}`}>
-        <p className="text-gray-400">Berlaku sampai {kartu.timelimit}</p>
+        <p className="text-gray-400">Berlaku sampai {kartu.validity}</p>
       </div>
     </div>
   );

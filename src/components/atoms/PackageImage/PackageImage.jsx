@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { formatQuota } from "@/utils/formatQuota";
 
 const categoryColors = {
   data: { bg: "#A100FF", text: "#89E4FF" },
@@ -23,14 +24,6 @@ const displayCategory = {
   roaming: "Roaming",
   default: "Paket",
 };
-
-function formatQuota(dataQuota) {
-  if (!dataQuota) return "";
-  if (dataQuota >= 1024) {
-    return `${Math.ceil(dataQuota / 1024)} GB`;
-  }
-  return `${Math.ceil(dataQuota)} MB`;
-}
 
 export default function PackageImage({
   width = "100%",
@@ -67,6 +60,7 @@ export default function PackageImage({
   const type = displayCategory[category] || displayCategory.default;
 
   const quota = formatQuota(specs.dataQuota);
+  const videoQuota = formatQuota(specs.videoDataQuota);
   const sms = specs.smsCount ? `${specs.smsCount} Pesan` : "";
   const voice = specs.voiceMinutes ? `${specs.voiceMinutes} Menit` : "";
   const validity = specs.validity ? `${specs.validity} Hari` : "";
@@ -81,7 +75,7 @@ export default function PackageImage({
   }
 
   const mainInfo =
-    category === "roaming" ? roamingCountry : quota || sms || voice;
+    category === "roaming" ? roamingCountry : quota || videoQuota || sms || voice;
 
   return (
     <div

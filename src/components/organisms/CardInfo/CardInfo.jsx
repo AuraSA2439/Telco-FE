@@ -29,10 +29,10 @@ export default function CardInfo() {
 
   const kartuData = {
     number: user.phoneNumber,
-    status: user.status,
-    timelimit: user.timelimit,
-    device: user.device,
-    pulsa: user.pulsa,
+    planType: user.planType,
+    validity: user.validity,
+    device: user.deviceBrand,
+    pulsa: user.balance,
   };
 
   return (
