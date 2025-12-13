@@ -17,7 +17,6 @@ export default function Navbar() {
   const dropdownRef = useRef(null);
   const router = useRouter();
 
-  /* Load user profile on mount */
   useEffect(() => {
     (async () => {
       try {
@@ -29,7 +28,6 @@ export default function Navbar() {
     })();
   }, []);
 
-  /* Close dropdown when clicking outside */
   useEffect(() => {
     const handleClick = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -57,7 +55,7 @@ export default function Navbar() {
           />
         </Link>
 
-        <div className="flex items-center gap-3 md:gap-8 w-full justify-end">
+        <div className="flex items-center gap-2 md:gap-6 w-full justify-end">
 
           <div className="hidden md:block flex-1">
             <SearchBar />
@@ -79,8 +77,10 @@ export default function Navbar() {
               <>
                 <button
                   onClick={() => setDropdownOpen((prev) => !prev)}
-                  className="px-4 py-2 mx-3 border-x-2 border-white hover:bg-purple-800 transition"
+                  className="flex gap-3 px-4 py-2 mx-3 hover:bg-purple-800 transition"
                 >
+                  <Icon className="w-[2px] h-10 bg-white" />
+                  <Icon className="w-10 h-10 rounded-full bg-[var(--neutral-color)]" />
                   <div className="flex flex-col items-start">
                     <span className="font-bold">
                       {user.name || "User"}
@@ -106,7 +106,6 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* MOBILE MENU BUTTON */}
           <button
             onClick={() => setOpen((prev) => !prev)}
             className="md:hidden p-2 rounded-lg flex items-center hover:bg-purple-800 flex-shrink-0"
