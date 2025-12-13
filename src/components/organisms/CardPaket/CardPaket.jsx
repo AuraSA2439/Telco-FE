@@ -26,7 +26,7 @@ export default function CardPaket() {
   if (!user) return <p>No user info found</p>;
 
   const kartuData = {
-    pulsa: user.balance,
+    pulsa: `${user.balance.toLocaleString("id-ID")}`,
     dataQuota: user.dataQuota,
     videoQuota: user.videoQuota,
     voiceQuota: user.voiceQuota,
