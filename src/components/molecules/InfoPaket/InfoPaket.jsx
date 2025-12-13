@@ -1,26 +1,34 @@
 import styles from "./InfoPaket.module.css";
-import Icon from "@/components/atoms/Icon/Icon";
 import TempInfo from "@/components/molecules/TempInfo/TempInfo";
+import { formatQuota } from "@/utils/formatQuota";
 
 export default function InfoPaket({ kartu }) {
   return (
     <div className="w-full h-full flex items-center justify-evenly">
       <TempInfo 
         title="Internet" 
-        description="2.5 GB" 
+        description={formatQuota(kartu.dataQuota)} 
       />
       <TempInfo 
         title="Video" 
-        description="4 GB" 
+        description={formatQuota(kartu.videoQuota)} 
       />
       <TempInfo 
         title="Telepon" 
-        description="60 Menit" 
+        description={
+          kartu.voiceQuota === 999999
+            ? "Unlimited"
+            : `${kartu.voiceQuota} Menit`
+        }
       />
       <TempInfo 
         title="SMS" 
-        description="500 Pesan" 
+        description={
+          kartu.smsQuota === 999999
+            ? "Unlimited"
+            : `${kartu.smsQuota} SMS`
+        }
       />
-    </ div>
+    </div>
   );
 }

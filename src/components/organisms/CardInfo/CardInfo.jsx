@@ -32,7 +32,6 @@ export default function CardInfo() {
     planType: user.planType,
     validity: user.validity,
     device: user.deviceBrand,
-    pulsa: user.balance,
   };
 
   return (
