@@ -11,12 +11,10 @@ export async function fetchProducts({ page = 1, limit = 20 }) {
       id: p._id,
       name: p.name,
       category: p.category,
-      rawPrice: p.price,
-      price: `Rp. ${p.price.toLocaleString("id-ID")}`,
+      price: p.price,
       description: p.description,
       specifications: p.specifications,
       features: p.features,
-      image: p.image, // add image if available
     }));
   } catch (err) {
     console.error("fetchProducts error:", err);
@@ -37,12 +35,10 @@ export async function fetchProductById(id) {
       id: p._id,
       name: p.name,
       category: p.category,
-      rawPrice: p.price,
-      price: `Rp. ${p.price.toLocaleString("id-ID")}`,
+      price: p.price,
       description: p.description,
       specifications: p.specifications,
       features: p.features,
-      image: p.image,
     };
   } catch (err) {
     console.error("fetchProductById error:", err);
