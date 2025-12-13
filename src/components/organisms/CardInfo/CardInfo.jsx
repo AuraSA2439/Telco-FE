@@ -1,10 +1,9 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { getProfile } from "@/services/auth";
 import InfoKartu from "@/components/molecules/InfoKartu/InfoKartu";
 import InfoDevice from "@/components/molecules/InfoDevice/InfoDevice";
 import CardContainer from "@/components/atoms/CardContainer/CardContainer";
+import { calculateExpiryDate, formatDate } from "@/utils/date";
 import styles from "./CardInfo.module.css";
 
 export default function CardInfo() {
@@ -27,10 +26,12 @@ export default function CardInfo() {
   if (loading) return <p>Loading user info...</p>;
   if (!user) return <p>No user info found</p>;
 
+  const expiryDate = calculateExpiryDate(user.validity);
+
   const kartuData = {
     number: user.phoneNumber,
     planType: user.planType,
-    validity: user.validity,
+    expiryDate: formatDate(expiryDate),
     device: user.deviceBrand,
   };
 
