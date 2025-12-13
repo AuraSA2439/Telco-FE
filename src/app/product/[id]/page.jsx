@@ -2,12 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Link from "next/link";
 
 import { fetchProductById } from "@/services/products";
 
 // Components
-import { Badge } from "@/components/atoms/Badge/Badge";
 import Button from "@/components/atoms/Button/Button";
 import PackageImage from "@/components/atoms/PackageImage/PackageImage";
 import CardContainer from "@/components/atoms/CardContainer/CardContainer";

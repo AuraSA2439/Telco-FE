@@ -79,14 +79,16 @@ export default function Navbar() {
               <>
                 <button
                   onClick={() => setDropdownOpen((prev) => !prev)}
-                  className="flex flex-col items-start px-4 py-2 mx-3 border-x-2 border-white hover:bg-purple-800 transition"
+                  className="px-4 py-2 mx-3 border-x-2 border-white hover:bg-purple-800 transition"
                 >
-                  <span className="font-bold">
-                    {user.name || "User"}
-                  </span>
-                  <span className="text-sm opacity-80">
-                    {user.phoneNumber || "Phone"}
-                  </span>
+                  <div className="flex flex-col items-start">
+                    <span className="font-bold">
+                      {user.name || "User"}
+                    </span>
+                    <span className="text-sm opacity-80 border-t-1 border-white">
+                      {user.phoneNumber || "Phone"}
+                    </span>
+                  </div>
                 </button>
 
                 {dropdownOpen && (
