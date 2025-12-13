@@ -11,31 +11,30 @@ export default function SearchBar({
   const [value, setValue] = useState("");
   const router = useRouter();
 
-  const triggerSearch = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const q = value.trim();
     if (!q) return;
+
     router.push(`/products?q=${encodeURIComponent(q)}`);
   };
 
   return (
-    <div className={`${styles.searchBar} w-full rounded-full flex items-center gap-2`}>
+    <form
+      onSubmit={handleSubmit}
+      className={`${styles.searchBar} w-full rounded-full flex items-center gap-2`}
+    >
       <input
-        type="text"
+        type="search"
         className="w-full outline-none bg-transparent"
         value={value}
         placeholder={placeholder}
         onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            triggerSearch();
-          }
-        }}
       />
 
-      <button onClick={triggerSearch} aria-label="Search">
+      <button type="submit" aria-label="Search">
         <Icon name="search" size={20} />
       </button>
-    </div>
+    </form>
   );
 }
