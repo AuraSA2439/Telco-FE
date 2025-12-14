@@ -15,7 +15,7 @@ export default function ProductCard({ product, onAdd }) {
           product={product}
         />
         {/* <h2 className="mt-3">{product.name}</h2> */}
-        <p className="text-neutral-600">Rp. {product.price.toLocaleString("id-ID")}</p>
+        <p className="text-neutral-600">{product.price}</p>
         {/* <Button onClick={() => onAdd(product)} className="mt-3">Add to Cart</Button> */}
       </CardContainer>
     </Link>
