@@ -47,7 +47,7 @@ export default function Home() {
         <CardHeader
           title="Penawaran untuk Mu"
           linkText="Lihat Semua"
-          href="/recommendations"
+          href="/products"
           titleClass="text-[var(--secondary-color)]"
           linkClass="text-[var(--primary-color)]"
           className="mb-2"
@@ -58,7 +58,7 @@ export default function Home() {
         <CardHeader 
           title="Jelajahi Lebih Lanjut" 
           linkText="Lihat Semua"
-          href="/recommedations"  
+          href="/products"  
           titleClass="text-[var(--secondary-color)]"
           linkClass="text-[var(--primary-color)]"
           className="mb-4"

@@ -39,7 +39,7 @@ export async function fetchRecommendations() {
         id: p.id || p._id || `recommended-${index}`,
         name: p.name,
         category: (p.category || "").toLowerCase(),
-        price: p`${p.price.toLocaleString("id-ID")}`,
+        price: `Rp. ${p.price.toLocaleString("id-ID")}`,
         description: p.description,
         specifications: p.specifications,
         features: p.features,

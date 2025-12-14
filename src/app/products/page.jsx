@@ -9,7 +9,7 @@ import ProductGrid from "@/components/organisms/ProductGrid/ProductGrid";
 import Filter from "@/components/organisms/Filter/Filter";
 import Loading from "@/components/atoms/Loading/Loading";
 
-export default function RecommendationPage() {
+export default function ProductsPage() {
   const [allProducts, setAllProducts] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
 

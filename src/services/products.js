@@ -28,7 +28,7 @@ export async function fetchProducts({ page = 1, limit = 50 } = {}) {
   if (!res.ok) throw new Error(json.message || "Failed to fetch products");
 
   return (json.data || []).map((p, index) => ({
-    id: p.id || p._id || `product-${index}`,
+    id: p.id || p._id || `products-${index}`,
     name: p.name,
     category: (p.category || "").toLowerCase(),
     price: `Rp. ${p.price.toLocaleString("id-ID")}`,
