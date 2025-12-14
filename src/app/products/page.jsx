@@ -60,7 +60,7 @@ export default function ProductsPage() {
     <>
       <CardInfo />
 
-      <div className="max-w-[950px] w-full mx-auto px-3 sm:px-4 py-4 sm:py-6 bg-[#F3F3F3] border border-[var(--neutral-color)] rounded-2xl overflow-hidden">
+      <div className="max-w-[950px] w-full mx-auto bg-[#F3F3F3] border border-[var(--neutral-color)] rounded-2xl overflow-hidden">
         {/* Filter Tabs - horizontal scroll on small screens */}
         <Filter
           filter={filter}
@@ -91,7 +91,7 @@ export default function ProductsPage() {
         {/* Product Grid */}
         {!loading && !error && filteredProducts.length > 0 && (
           <ProductGrid
-            className="px-1 sm:px-4 py-2 sm:py-4 my-3"
+            className="px-4 py-2 sm:py-4 my-2"
             products={filteredProducts}
             onAdd={() => {}}
           />
