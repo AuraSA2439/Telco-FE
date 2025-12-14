@@ -1,12 +1,11 @@
 "use client";
 
-export default function RecommendationFilter({ filter, onChange }) {
+export default function Filter({ filter, onChange }) {
   return (
-    <div className="w-full flex flex-wrap gap-4 mb-4">
-
-      {/* Paket Category (FE only, SINKRON dengan BE) */}
+    <div className="w-full flex flex-wrap gap-4 mb-6 justify-center sm:justify-start">
+      {/* Paket Category */}
       <select
-        className="bg-[#1a1a1a] text-white px-3 py-2 rounded"
+        className="bg-[#1a1a1a] text-white px-4 py-2 rounded-lg outline-none focus:ring-2 focus:ring-purple-500"
         value={filter.category}
         onChange={(e) => onChange({ category: e.target.value })}
       >
@@ -15,29 +14,6 @@ export default function RecommendationFilter({ filter, onChange }) {
         <option value="voice">Voice</option>
         <option value="streaming">Streaming</option>
         <option value="combo">Combo</option>
-      </select>
-
-      {/* Limit (mengontrol jumlah hasil dari BE) */}
-      <select
-        className="bg-[#1a1a1a] text-white px-3 py-2 rounded"
-        value={filter.limit}
-        onChange={(e) => onChange({ limit: Number(e.target.value) })}
-      >
-        <option value={5}>5 produk</option>
-        <option value={10}>10 produk</option>
-        <option value={15}>15 produk</option>
-        <option value={20}>20 produk</option>
-      </select>
-
-      {/* Algorithm (langsung dikirim ke BE / ML) */}
-      <select
-        className="bg-[#1a1a1a] text-white px-3 py-2 rounded"
-        value={filter.algorithm}
-        onChange={(e) => onChange({ algorithm: e.target.value })}
-      >
-        <option value="hybrid">Hybrid</option>
-        <option value="content-based">Content-Based</option>
-        <option value="collaborative">Collaborative</option>
       </select>
     </div>
   );

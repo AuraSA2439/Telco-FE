@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import { fetchRecommendations } from "@/services/recommendations";
 
 import ProductGrid from "@/components/organisms/ProductGrid/ProductGrid";
-import RecommendationFilter from "@/components/organisms/Filter/Filter"; 
+import Filter from "@/components/organisms/Filter/Filter";
 import Loading from "@/components/atoms/Loading/Loading";
 
 export default function RecommendationPage() {
@@ -12,9 +12,8 @@ export default function RecommendationPage() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // ✅ Only category filter remains
   const [filter, setFilter] = useState({
-    algorithm: "hybrid",
-    limit: 20,
     category: "all",
   });
 
@@ -24,12 +23,9 @@ export default function RecommendationPage() {
       setError(null);
 
       try {
-        const result = await fetchRecommendations({
-          algorithm: filter.algorithm,
-          limit: filter.limit,
-        });
+        const result = await fetchRecommendations();
 
-        // ⬅ Normalisasi kategori menjadi lowercase
+        // Normalize category to lowercase
         const normalized = result.map((p) => ({
           ...p,
           category: (p.category || "").toLowerCase(),
@@ -45,9 +41,8 @@ export default function RecommendationPage() {
     }
 
     load();
-  }, [filter.algorithm, filter.limit]);
+  }, []);
 
-  // ✔ Kategori filter aman karena sudah dinormalisasi
   const filteredProducts = useMemo(() => {
     if (filter.category === "all") return rawProducts;
     return rawProducts.filter((p) => p.category === filter.category);
@@ -57,12 +52,11 @@ export default function RecommendationPage() {
 
   return (
     <div className="max-w-[950px] w-full mx-auto px-4 py-6">
-
       <h1 className="mb-6 text-3xl font-bold text-center">
         Rekomendasi Untuk Anda
       </h1>
 
-      <RecommendationFilter
+      <Filter
         filter={filter}
         onChange={(v) => setFilter((prev) => ({ ...prev, ...v }))}
       />
