@@ -7,7 +7,7 @@ import { fetchProducts } from "@/services/products";
 import ProductGrid from "@/components/organisms/ProductGrid/ProductGrid";
 import Loading from "@/components/atoms/Loading/Loading";
 
-export default function AllProductsPage() {
+export default function SearchProductPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
 
