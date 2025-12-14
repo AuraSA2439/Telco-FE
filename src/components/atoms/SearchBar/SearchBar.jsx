@@ -16,13 +16,13 @@ export default function SearchBar({
     const q = value.trim();
     if (!q) return;
 
-    router.push(`/products?q=${encodeURIComponent(q)}`);
+    router.push(`/allProducts?q=${encodeURIComponent(q)}`);
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className={`${styles.searchBar} w-full rounded-full flex items-center gap-2`}
+      className={`${styles.searchBar} w-full rounded-full flex gap-2 text-gray-500`}
     >
       <input
         type="search"
@@ -32,8 +32,8 @@ export default function SearchBar({
         onChange={(e) => setValue(e.target.value)}
       />
 
-      <button type="submit" aria-label="Search">
-        <Icon name="search" size={20} />
+      <button type="submit" aria-label="Search" className="flex items-center">
+        <Icon name="search" size={24} />
       </button>
     </form>
   );
