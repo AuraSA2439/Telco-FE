@@ -4,20 +4,31 @@ import { useEffect } from "react";
 
 export default function PWARegister() {
   useEffect(() => {
-    if (!("serviceWorker" in navigator)) return;
+    if (
+      process.env.NODE_ENV !== "production" ||
+      !("serviceWorker" in navigator)
+    ) {
+      return;
+    }
 
-    const registerSW = () => {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then(() => console.log("✅ Service Worker registered"))
-        .catch((err) =>
-          console.error("❌ Service Worker registration failed:", err)
-        );
-    };
+    navigator.serviceWorker.register("/sw.js").then((reg) => {
+      reg.addEventListener("updatefound", () => {
+        const newWorker = reg.installing;
 
-    window.addEventListener("load", registerSW);
-
-    return () => window.removeEventListener("load", registerSW);
+        newWorker.addEventListener("statechange", () => {
+          if (
+            newWorker.state === "installed" &&
+            navigator.serviceWorker.controller
+          ) {
+            // 🔔 New version available
+            if (confirm("New version available. Reload now?")) {
+              newWorker.postMessage("SKIP_WAITING");
+              window.location.reload();
+            }
+          }
+        });
+      });
+    });
   }, []);
 
   return null;
