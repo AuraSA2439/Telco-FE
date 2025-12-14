@@ -1,3 +1,23 @@
+.wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
 .description {
-  font-size: 20px;
+  font-size: 14px; 
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .description {
+    font-size: 18px;
+  }
 }

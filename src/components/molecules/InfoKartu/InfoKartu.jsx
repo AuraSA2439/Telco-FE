@@ -10,9 +10,7 @@ export default function InfoKartu({ kartu }) {
       </div>
 
       <div className={styles.description}>
-        <p className="text-gray-400">
-          Berlaku sampai {kartu.expiryDate}
-        </p>
+        <p>Berlaku sampai {kartu.expiryDate}</p>
       </div>
     </div>
   );

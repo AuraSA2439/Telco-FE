@@ -22,8 +22,8 @@ export default function CardPaket() {
     })();
   }, []);
 
-  if (loading) return <p>Loading user info...</p>;
-  if (!user) return <p>No user info found</p>;
+  if (loading) return <p className="text-sm text-gray-400">Loading user info...</p>;
+  if (!user) return <p className="text-sm text-gray-400">No user info found</p>;
 
   const kartuData = {
     pulsa: `${user.balance.toLocaleString("id-ID")}`,
@@ -34,11 +34,9 @@ export default function CardPaket() {
   };
 
   return (
-    <>
-    <CardContainer size="large" className={`${styles.wrapper} md:flex-row`}>
+    <CardContainer size="large" className={styles.wrapper}>
       <InfoPulsa kartu={kartuData} />
       <InfoPaket kartu={kartuData} />
     </CardContainer>
-    </>
   );
 }

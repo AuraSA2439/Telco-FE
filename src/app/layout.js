@@ -56,7 +56,7 @@ export default function RootLayout({ children }) {
             <Loading />
 
             <PageWrapper>
-              <main className="px-20 py-4 max-w-[800px] mx-auto flex flex-col items-center gap-4">
+              <main className="px-4 sm:px-6 md:px-12 lg:px-20 py-4 max-w-[800px] mx-auto flex flex-col items-center gap-4">
                 {children}
               </main>
             </PageWrapper>

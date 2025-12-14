@@ -4,25 +4,25 @@ import { formatQuota } from "@/utils/formatQuota";
 
 export default function InfoPaket({ kartu }) {
   return (
-    <div className="w-full h-full flex items-center justify-evenly">
-      <TempInfo 
-        title="Internet" 
-        description={formatQuota(kartu.dataQuota)} 
+    <div className={styles.wrapper}>
+      <TempInfo
+        title="Internet"
+        description={formatQuota(kartu.dataQuota)}
       />
-      <TempInfo 
-        title="Video" 
-        description={formatQuota(kartu.videoQuota)} 
+      <TempInfo
+        title="Video"
+        description={formatQuota(kartu.videoQuota)}
       />
-      <TempInfo 
-        title="Telepon" 
+      <TempInfo
+        title="Telepon"
         description={
           kartu.voiceQuota === 999999
             ? "Unlimited"
             : `${kartu.voiceQuota} Menit`
         }
       />
-      <TempInfo 
-        title="SMS" 
+      <TempInfo
+        title="SMS"
         description={
           kartu.smsQuota === 999999
             ? "Unlimited"

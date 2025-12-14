@@ -80,14 +80,20 @@ export default function Navbar() {
                   onClick={() => setDropdownOpen((v) => !v)}
                   className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-purple-800 transition"
                 >
+                  |
                   <Icon className="w-9 h-9 rounded-full bg-[var(--neutral-color)]" />
-                  <span className="font-semibold">
-                    {user.name || "User"}
-                  </span>
+                  <div className="flex flex-col">
+                    <span className="pr-2 font-semibold">
+                      {user.name || "User"}
+                    </span>
+                    <span className="pr-2 text-sm font-semibold opacity-80 border-t-1 border-white">
+                      {user.phoneNumber || "08xxxxxxxxxx"}
+                    </span>
+                  </div>
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white text-[#5B5B5B] rounded-lg shadow-lg overflow-hidden">
+                  <div className="absolute right-0 top-13 w-40 bg-white text-[#5B5B5B] rounded-lg shadow-lg overflow-hidden">
                     <button
                       onClick={handleLogout}
                       className="w-full px-4 py-2 text-left hover:bg-gray-100 text-red-500"
