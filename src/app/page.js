@@ -27,7 +27,7 @@ export default function Home() {
         // Optional slight delay for smoother UX
         await new Promise((res) => setTimeout(res, 1000));
 
-        setProducts(all); // <-- keep using this for ProductGrid
+        setProducts(all);
         setRecommendedProducts(recommended);
       } finally {
         setLoading(false);

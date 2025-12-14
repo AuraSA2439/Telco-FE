@@ -1,12 +1,12 @@
 import Link from "next/link";
 import styles from "./ProductCard.module.css";
-import PackageImage from "../../atoms/PackageImage/PackageImage";
-import CardContainer from "../../atoms/CardContainer/CardContainer";
+import PackageImage from "@/components/atoms/PackageImage/PackageImage";
+import CardContainer from "@/components/atoms/CardContainer/CardContainer";
 
 export default function ProductCard({ product, onAdd }) {
   return (
     <>
-    <Link href={`/product/${product.id}`} className={styles.link}>
+    <Link href={`/products/${product.id}`} className={styles.link}>
       <CardContainer size="medium" className={styles.wrapper}
       onClick={() => onAdd(product)}>
         <PackageImage
