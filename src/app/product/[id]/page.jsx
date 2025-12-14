@@ -46,6 +46,7 @@ export default function ProductDetailPage() {
         <PackageImage 
           width="100%" 
           height="100%"
+          size="big"
           className="flex flex-col aligns-center justify-center"
           product={product}
         />

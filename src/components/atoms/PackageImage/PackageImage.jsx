@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { formatQuota } from "@/utils/formatQuota";
+import styles from "./PackageImage.module.css";
 
 const categoryColors = {
   data: { bg: "#A100FF", text: "#89E4FF" },
@@ -25,22 +26,16 @@ const displayCategory = {
   default: "Paket",
 };
 
-export default function PackageImage({
-  width = "100%",
-  height = "auto",
-  product,
-}) {
+export default function PackageImage({ product, size = "medium" }) {
   const containerRef = useRef(null);
   const [fontScale, setFontScale] = useState(1);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      const boxWidth = entry.contentRect.width;
-
-      const scale = Math.max(0.6, Math.min(boxWidth / 160, 2));
+    const observer = new ResizeObserver(([entry]) => {
+      const width = entry.contentRect.width;
+      const scale = Math.max(0.6, Math.min(width / 160, 2));
       setFontScale(scale);
     });
 
@@ -75,48 +70,44 @@ export default function PackageImage({
   }
 
   const mainInfo =
-    category === "roaming" ? roamingCountry : quota || videoQuota || sms || voice;
+    category === "roaming"
+      ? roamingCountry
+      : quota || videoQuota || sms || voice;
 
   return (
     <div
       ref={containerRef}
       style={{
-        width,
-        height,
         backgroundColor: colors.bg,
         color: colors.text,
       }}
-      className="w-full aspect-square flex flex-col font-bold rounded-lg p-6 md:px-4 md:py-2 select-none overflow-hidden"
+      className={`${styles.container} ${styles[size]}`}
     >
       <span
-        style={{
-          fontSize: `${20 * fontScale}px`,
-          color: "#ffffff",
-        }}
+        className={styles.type}
+        style={{ fontSize: `${20 * fontScale}px` }}
       >
         {type}
       </span>
 
       {mainInfo && (
         <span
+          className={styles.main}
           style={{
-            fontSize: `${36 * fontScale}px`,
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
+            fontSize:
+              size === "large"
+                ? "28px"
+                : `${32 * fontScale}px`,
           }}
         >
           {mainInfo}
         </span>
       )}
 
-      {validity && (
+      {size === "medium" && validity && (
         <span
-          style={{
-            fontSize: `${20 * fontScale}px`,
-            color: "#000000",
-            opacity: 0.8,
-          }}
+          className={styles.validity}
+          style={{ fontSize: `${20 * fontScale}px` }}
         >
           {validity}
         </span>
