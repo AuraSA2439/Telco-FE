@@ -44,14 +44,17 @@ export default function ProductsPage() {
   }, []);
 
   const filteredProducts = useMemo(() => {
-    if (filter.category === "__ALL__") return allProducts;
     if (filter.category === "__RECOMMENDED__") return recommendedProducts;
+
+    if (filter.category === "__ALL__") return allProducts;
+
     if (Array.isArray(filter.category)) {
-      return recommendedProducts.filter((p) =>
+      return allProducts.filter((p) =>
         filter.category.includes(p.category)
       );
     }
-    return recommendedProducts;
+
+    return allProducts;
   }, [filter.category, allProducts, recommendedProducts]);
 
   const isEmpty = !loading && !error && filteredProducts.length === 0;
@@ -61,7 +64,6 @@ export default function ProductsPage() {
       <CardInfo />
 
       <div className="max-w-[950px] w-full mx-auto bg-[#F3F3F3] border border-[var(--neutral-color)] rounded-2xl overflow-hidden">
-        {/* Filter Tabs - horizontal scroll on small screens */}
         <Filter
           filter={filter}
           onChange={(v) => setFilter((prev) => ({ ...prev, ...v }))}
