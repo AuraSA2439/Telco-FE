@@ -29,8 +29,17 @@ const displayCategory = {
 export default function PackageImage({ product, size = "medium" }) {
   const containerRef = useRef(null);
   const [fontScale, setFontScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
 
-  /* Scale only affects MEDIUM cards */
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 640px)");
+    const update = () => setIsMobile(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
   useEffect(() => {
     if (!containerRef.current || size === "large") return;
 
@@ -75,20 +84,25 @@ export default function PackageImage({ product, size = "medium" }) {
       ? roamingCountry
       : quota || videoQuota || sms || voice;
 
-  /* ===== FONT RULES ===== */
   const typeFontSize =
     size === "large"
-      ? "32px"
+      ? isMobile
+        ? "20px"
+        : "32px"
       : `${20 * fontScale}px`;
 
   const mainFontSize =
     size === "large"
-      ? "48px"
+      ? isMobile
+        ? "32px"
+        : "48px"
       : `${32 * fontScale}px`;
 
   const validityFontSize =
     size === "large"
-      ? "32px"
+      ? isMobile
+        ? "20px"
+        : "32px"
       : `${20 * fontScale}px`;
 
   return (
