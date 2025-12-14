@@ -9,7 +9,6 @@ import Form from "@/components/molecules/Form/Form";
 
 export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
-  // const [name, setName] = useState(""); // optional
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -18,7 +17,7 @@ export default function LoginPage() {
     setError("");
 
     try {
-      await loginUser({ phoneNumber, name });
+      await loginUser({ phoneNumber });
       router.push("/");
     } catch (err) {
       setError(err.message);
@@ -26,9 +25,9 @@ export default function LoginPage() {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="w-[280px]">
       <h1 className="text-2xl font-bold text-[var(--primary-color)] border-b-2 border-[var(--neutral-color)] pt-1 pb-3">
-        Login
+        Masukan Nomor Telepon
       </h1>
 
       <Input
@@ -37,15 +36,9 @@ export default function LoginPage() {
         onChange={(e) => setPhoneNumber(e.target.value)}
       />
 
-       {/* <Input
-        placeholder="Name (optional)"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      /> */}
-
       {error && <p className="text-red-400">{error}</p>}
 
-      <Button>Login</Button>
+      <Button>Masuk</Button>
     </Form>
   );
 }

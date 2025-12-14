@@ -12,18 +12,12 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-/* ------------------------------------------
-   METADATA (NO themeColor here)
-------------------------------------------- */
 export const metadata = {
   title: "Telco",
   description: "A Telcom Products Recommendation Website",
   manifest: "/manifest.json",
 };
 
-/* ------------------------------------------
-   VIEWPORT (themeColor MUST be here)
-------------------------------------------- */
 export const viewport = {
   themeColor: "#7200B5",
   width: "device-width",
