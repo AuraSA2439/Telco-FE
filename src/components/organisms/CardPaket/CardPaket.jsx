@@ -35,7 +35,7 @@ export default function CardPaket() {
 
   return (
     <>
-    <CardContainer size="large" className={styles.wrapper}>
+    <CardContainer size="large" className={`${styles.wrapper} md:flex-row`}>
       <InfoPulsa kartu={kartuData} />
       <InfoPaket kartu={kartuData} />
     </CardContainer>

@@ -36,7 +36,7 @@ export default function CardInfo() {
   };
 
   return (
-    <CardContainer size="large" className={styles.wrapper}>
+    <CardContainer size="large" className={`${styles.wrapper}`}>
       <InfoKartu kartu={kartuData} />
       <InfoDevice kartu={kartuData} />
     </CardContainer>

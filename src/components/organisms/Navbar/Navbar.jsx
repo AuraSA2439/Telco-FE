@@ -1,102 +1,81 @@
 "use client";
 
 import Link from "next/link";
-import Icon from "@/components/atoms/Icon/Icon";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+
+import Icon from "@/components/atoms/Icon/Icon";
 import Button from "@/components/atoms/Button/Button";
 import SearchBar from "@/components/atoms/SearchBar/SearchBar";
 import { getProfile, logout } from "@/services/auth";
 import styles from "./Navbar.module.css";
-import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const dropdownRef = useRef(null);
   const router = useRouter();
 
   useEffect(() => {
-    (async () => {
-      try {
-        const profile = await getProfile();
-        setUser(profile);
-      } catch {
-        setUser(null);
-      }
-    })();
+    getProfile().then(setUser).catch(() => setUser(null));
   }, []);
 
   useEffect(() => {
-    const handleClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    const close = (e) =>
+      dropdownRef.current && !dropdownRef.current.contains(e.target) &&
+      setDropdownOpen(false);
+
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
   }, []);
 
-  function handleLogout() {
+  const handleLogout = () => {
     logout();
     setUser(null);
     router.push("/login");
-  }
+  };
 
   return (
-    <nav className={`w-full sticky top-0 z-50 text-white ${styles.nav}`}>
-      <div className="mx-auto flex items-center px-4">
-        <Link href="/" className="w-70 flex-shrink-0 ml-4">
+    <nav className={`sticky top-0 z-50 text-white ${styles.nav}`}>
+      <div className="flex items-center px-4 h-16">
+        {/* LOGO */}
+        <Link href="/" className="flex-shrink-0">
           <img
             src="/assets/logo.png"
             alt="Logo"
-            className="h-12 w-auto md:h-14" 
+            className="h-10 md:h-14 w-auto"
           />
         </Link>
 
-        <div className="flex items-center gap-2 md:gap-6 w-full justify-end">
-
-          <div className="hidden md:block flex-1">
+        {/* DESKTOP */}
+        <div className="hidden md:flex items-center flex-1 gap-6 justify-end">
+          <div className="flex-1 max-w-md">
             <SearchBar />
           </div>
 
-          {/* DESKTOP MENU */}
-          <div className="hidden md:flex h-10 gap-4">
-            <Link href="/" className={styles.navButton}>Beranda</Link>
-            <Link href="/recommendations" className={styles.navButton}>Beli Paket</Link>
-          </div>
+          <Link href="/" className={styles.navButton}>Beranda</Link>
+          <Link href="/recommendations" className={styles.navButton}>Beli Paket</Link>
 
-          {/* DESKTOP LOGIN / PROFILE */}
-          <div className="hidden md:flex relative" ref={dropdownRef}>
+          <div ref={dropdownRef}>
             {!user ? (
-              <Link href="/login">
-                <Button>Login</Button>
-              </Link>
+              <Link href="/login"><Button>Login</Button></Link>
             ) : (
               <>
                 <button
-                  onClick={() => setDropdownOpen((prev) => !prev)}
-                  className="flex gap-3 px-4 py-2 mx-3 hover:bg-purple-800 transition"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-3 px-3 py-2 hover:bg-purple-800 rounded-lg"
                 >
-                  <Icon className="w-[2px] h-10 bg-white" />
-                  <Icon className="w-10 h-10 rounded-full bg-[var(--neutral-color)]" />
-                  <div className="flex flex-col items-start">
-                    <span className="font-bold">
-                      {user.name || "User"}
-                    </span>
-                    <span className="text-sm opacity-80 border-t-1 border-white">
-                      {user.phoneNumber || "Phone"}
-                    </span>
-                  </div>
+                  <Icon className="w-8 h-8 rounded-full bg-[var(--neutral-color)]" />
+                  <span className="font-semibold">{user.name}</span>
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute top-13 right-0 w-40 px-2 bg-white text-red-500 flex items-center rounded-lg shadow-lg overflow-hidden hover:bg-grey-700">
-                    <Icon name="logout" size={24} />
+                  <div className="absolute right-4 mt-2 bg-white text-red-500 rounded-lg shadow-md">
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2"
+                      className="px-4 py-2 w-full text-left hover:bg-gray-100"
                     >
                       Logout
                     </button>
@@ -105,48 +84,36 @@ export default function Navbar() {
               </>
             )}
           </div>
-
-          <button
-            onClick={() => setOpen((prev) => !prev)}
-            className="md:hidden p-2 rounded-lg flex items-center hover:bg-purple-800 flex-shrink-0"
-          >
-            <span className="material-symbols-outlined text-3xl">
-              {open ? "close" : "menu"}
-            </span>
-          </button>
-
         </div>
+
+        {/* MOBILE MENU BUTTON */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden ml-auto p-2"
+        >
+          <span className="material-symbols-outlined text-3xl">
+            {open ? "close" : "menu"}
+          </span>
+        </button>
       </div>
 
+      {/* MOBILE MENU */}
       {open && (
-        <div className="md:hidden px-6 py-3 border-t bg-white text-[#5B5B5B] animate-fadeIn">
-          <div className="flex flex-col gap-4">
+        <div className="flex flex-col md:hidden bg-white text-[#5B5B5B] px-4 py-4 space-y-4">
+          <SearchBar />
 
-            <Link href="/" onClick={() => setOpen(false)}
-            className="px-2 border-[var(--secondary-color)] hover:border-l-3 hover:text-[18px] transition">
-              Beranda
-            </Link>
-            <Link href="/recommendations" onClick={() => setOpen(false)}
-            className="px-2 border-[var(--secondary-color)] hover:border-l-3 hover:text-[18px] transition">
-              Beli Paket
-            </Link>
+          <Link href="/" onClick={() => setOpen(false)}>Beranda</Link>
+          <Link href="/recommendations" onClick={() => setOpen(false)}>Beli Paket</Link>
 
-            {!user ? (
-              <Link href="/login" onClick={() => setOpen(false)}>
-                <Button className="w-full mt-2">Login</Button>
-              </Link>
-            ) : (
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  handleLogout();
-                }}
-                className="w-full mt-4 bg-purple-700 text-white py-2 rounded-lg"
-              >
-                Logout
-              </button>
-            )}
-          </div>
+          {!user ? (
+            <Link href="/login">
+              <Button className="w-full">Login</Button>
+            </Link>
+          ) : (
+            <Button onClick={handleLogout} className="w-full bg-[var(--primary-color)]">
+              Logout
+            </Button>
+          )}
         </div>
       )}
     </nav>

@@ -1,5 +1,6 @@
 .searchBar {
   background-color: #ffffff;
+  border: 1px solid var(--primary-color);
   padding: 8px 16px;
   font-size: 14px;
   font-weight: 400;
