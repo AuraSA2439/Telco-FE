@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchProducts } from "@/services/products";
+import CardHeader from "@/components/atoms/CardHeader/CardHeader";
 import ProductRow from "@/components/organisms/ProductRow/ProductRow";
 import ProductGrid from "@/components/organisms/ProductGrid/ProductGrid";
 import CardInfo from "@/components/organisms/CardInfo/CardInfo";
@@ -42,8 +43,28 @@ export default function Home() {
     <>
       <CardInfo />
       <CardPaket />
-      <ProductRow products={products} />
-      <ProductGrid products={products} />
+      <div className="w-full max-md:max-h-[280px] flex flex-col gap-[10px] relative mt-2">
+        <CardHeader
+          title="Penawaran untuk Mu"
+          linkText="Lihat Semua"
+          href="/recommendations"
+          titleClass="text-[var(--secondary-color)]"
+          linkClass="text-[var(--primary-color)]"
+          className="mb-2"
+        />
+        <ProductRow products={products} />
+      </div>
+      <div className="w-full flex flex-col gap-[10px] mb-10">
+        <CardHeader 
+          title="Jelajahi Lebih Lanjut" 
+          linkText="Lihat Semua"
+          href="/recommedations"  
+          titleClass="text-[var(--secondary-color)]"
+          linkClass="text-[var(--primary-color)]"
+          className="mb-4"
+        />
+        <ProductGrid products={products} />
+      </div>
     </>
   );
 }
