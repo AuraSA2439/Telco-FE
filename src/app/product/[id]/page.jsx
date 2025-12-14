@@ -44,10 +44,7 @@ export default function ProductDetailPage() {
       />
       <div className="mt-4 flex flex-col gap-4">
         <PackageImage 
-          width="100%" 
-          height="100%"
-          size="big"
-          className="flex flex-col aligns-center justify-center"
+          size="large"
           product={product}
         />
         <div className="flex flex-col gap-2 text-[#777777]">

@@ -30,18 +30,19 @@ export default function PackageImage({ product, size = "medium" }) {
   const containerRef = useRef(null);
   const [fontScale, setFontScale] = useState(1);
 
+  /* Scale only affects MEDIUM cards */
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || size === "large") return;
 
     const observer = new ResizeObserver(([entry]) => {
       const width = entry.contentRect.width;
-      const scale = Math.max(0.6, Math.min(width / 160, 2));
+      const scale = Math.max(0.6, Math.min(width / 160, 1.4));
       setFontScale(scale);
     });
 
     observer.observe(containerRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [size]);
 
   const category = product?.category || "default";
   const specs = product?.specifications || {};
@@ -74,40 +75,45 @@ export default function PackageImage({ product, size = "medium" }) {
       ? roamingCountry
       : quota || videoQuota || sms || voice;
 
+  /* ===== FONT RULES ===== */
+  const typeFontSize =
+    size === "large"
+      ? "32px"
+      : `${20 * fontScale}px`;
+
+  const mainFontSize =
+    size === "large"
+      ? "48px"
+      : `${32 * fontScale}px`;
+
+  const validityFontSize =
+    size === "large"
+      ? "32px"
+      : `${20 * fontScale}px`;
+
   return (
     <div
       ref={containerRef}
+      className={`${styles.container} ${styles[size]}`}
       style={{
         backgroundColor: colors.bg,
         color: colors.text,
       }}
-      className={`${styles.container} ${styles[size]}`}
     >
-      <span
-        className={styles.type}
-        style={{ fontSize: `${20 * fontScale}px` }}
-      >
+      <span className={styles.type} style={{ fontSize: typeFontSize }}>
         {type}
       </span>
 
       {mainInfo && (
-        <span
-          className={styles.main}
-          style={{
-            fontSize:
-              size === "large"
-                ? "28px"
-                : `${32 * fontScale}px`,
-          }}
-        >
+        <span className={styles.main} style={{ fontSize: mainFontSize }}>
           {mainInfo}
         </span>
       )}
 
-      {size === "medium" && validity && (
+      {validity && (
         <span
           className={styles.validity}
-          style={{ fontSize: `${20 * fontScale}px` }}
+          style={{ fontSize: validityFontSize }}
         >
           {validity}
         </span>
