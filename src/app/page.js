@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { fetchProducts } from "@/services/products";
+import { fetchRecommendations } from "@/services/recommendations";
+
 import CardHeader from "@/components/atoms/CardHeader/CardHeader";
 import ProductRow from "@/components/organisms/ProductRow/ProductRow";
 import ProductGrid from "@/components/organisms/ProductGrid/ProductGrid";
@@ -10,20 +12,23 @@ import CardPaket from "@/components/organisms/CardPaket/CardPaket";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
+      setLoading(true);
       try {
-        const data = await fetchProducts({
-          page: 1,
-          limit: 20,
-        });
+        const [all, recommended] = await Promise.all([
+          fetchProducts({ page: 1, limit: 20 }),
+          fetchRecommendations(),
+        ]);
 
         // Optional slight delay for smoother UX
-        await new Promise((res) => setTimeout(res, 2000));
+        await new Promise((res) => setTimeout(res, 1000));
 
-        setProducts(data);
+        setProducts(all); // <-- keep using this for ProductGrid
+        setRecommendedProducts(recommended);
       } finally {
         setLoading(false);
       }
@@ -43,6 +48,7 @@ export default function Home() {
     <>
       <CardInfo />
       <CardPaket />
+
       <div className="w-full max-md:max-h-[280px] flex flex-col gap-[10px] relative mt-2">
         <CardHeader
           title="Penawaran untuk Mu"
@@ -52,8 +58,9 @@ export default function Home() {
           linkClass="text-[var(--primary-color)]"
           className="mb-2"
         />
-        <ProductRow products={products} />
+        <ProductRow products={recommendedProducts} />
       </div>
+
       <div className="w-full flex flex-col gap-[10px] mb-10">
         <CardHeader 
           title="Jelajahi Lebih Lanjut" 
