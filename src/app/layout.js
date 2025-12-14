@@ -40,9 +40,6 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
 
-        {/* PWA */}
-        <link rel="manifest" href="/manifest.json" />
-
         {/* Modern install meta */}
         <meta name="mobile-web-app-capable" content="yes" />
 

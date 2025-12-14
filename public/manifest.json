@@ -1,10 +1,9 @@
 {
   "name": "Telco",
   "short_name": "Telco",
-  "description": "Telco Products Recommendation App",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FFFFFF",
+  "background_color": "#ffffff",
   "theme_color": "#7200B5",
   "icons": [
     {

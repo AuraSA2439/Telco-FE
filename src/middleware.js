@@ -2,19 +2,38 @@ import { NextResponse } from "next/server";
 
 export function middleware(req) {
   const token = req.cookies.get("token")?.value;
-  const url = req.nextUrl.pathname;
+  const { pathname } = req.nextUrl;
 
-  // Allow login page
-  if (url === "/login") return NextResponse.next();
+  /* ------------------------------------------
+     ✅ ALLOW PUBLIC / PWA FILES
+  ------------------------------------------- */
+  if (
+    pathname === "/login" ||
+    pathname === "/manifest.json" ||
+    pathname === "/sw.js" ||
+    pathname.startsWith("/icons/") ||
+    pathname === "/favicon.ico" ||
+    pathname === "/robots.txt" ||
+    pathname === "/sitemap.xml"
+  ) {
+    return NextResponse.next();
+  }
 
-  // Redirect to login if no token
-  if (!token) return NextResponse.redirect(new URL("/login", req.url));
+  /* ------------------------------------------
+     🔐 AUTH PROTECTION
+  ------------------------------------------- */
+  if (!token) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
 
   return NextResponse.next();
 }
 
+/* ------------------------------------------
+   MATCHER (keep this)
+------------------------------------------- */
 export const config = {
   matcher: [
-    "/((?!_next|static|assets|favicon.ico|robots.txt|sitemap.xml).*)",
+    "/((?!_next|static|assets).*)",
   ],
 };
