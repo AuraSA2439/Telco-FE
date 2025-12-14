@@ -12,7 +12,6 @@ export default function RecommendationPage() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // ✅ Only category filter remains
   const [filter, setFilter] = useState({
     category: "all",
   });
@@ -25,9 +24,9 @@ export default function RecommendationPage() {
       try {
         const result = await fetchRecommendations();
 
-        // Normalize category to lowercase
-        const normalized = result.map((p) => ({
+        const normalized = result.map((p, index) => ({
           ...p,
+          id: p.id || p._id || `product-${index}`, // key safety
           category: (p.category || "").toLowerCase(),
         }));
 
@@ -45,6 +44,13 @@ export default function RecommendationPage() {
 
   const filteredProducts = useMemo(() => {
     if (filter.category === "all") return rawProducts;
+
+    if (Array.isArray(filter.category)) {
+      return rawProducts.filter((p) =>
+        filter.category.includes(p.category)
+      );
+    }
+
     return rawProducts.filter((p) => p.category === filter.category);
   }, [filter.category, rawProducts]);
 
@@ -58,7 +64,9 @@ export default function RecommendationPage() {
 
       <Filter
         filter={filter}
-        onChange={(v) => setFilter((prev) => ({ ...prev, ...v }))}
+        onChange={(v) =>
+          setFilter((prev) => ({ ...prev, ...v }))
+        }
       />
 
       {loading && (
