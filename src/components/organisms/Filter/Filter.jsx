@@ -1,7 +1,8 @@
 "use client";
 
 const CATEGORIES = [
-  { label: "Semua Paket", values: ["all"] },
+  { label: "Semua", values: ["all"] },
+  { label: "Rekomendasi", values: ["all"] },
   { label: "Combo", values: ["combo", "device"] },
   { label: "Internet", values: ["data", "roaming"] },
   { label: "Streaming", values: ["streaming"] },
@@ -10,7 +11,7 @@ const CATEGORIES = [
 
 export default function Filter({ filter, onChange }) {
   return (
-    <div className="w-full mb-6 overflow-x-auto">
+    <div className="w-full h-fit py-4 px-4 overflow-x-auto border-b-2 border-[var(--neutral-color)] bg-[#E6E6E6]">
       <div className="flex gap-2 justify-center sm:justify-start">
         {CATEGORIES.map((cat) => {
           const active =
@@ -33,12 +34,12 @@ export default function Filter({ filter, onChange }) {
                 })
               }
               className={`
-                px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap
+                px-4 py-2 rounded-full border-1 border-[var(--neutral-color)] text-sm font-medium whitespace-nowrap
                 transition-all duration-200
                 ${
                   active
-                    ? "bg-purple-600 text-white"
-                    : "bg-[#1a1a1a] text-gray-300 hover:bg-[#2a2a2a]"
+                    ? "bg-[var(--primary-color)] text-white"
+                    : "bg-[#FFFFFF] text-[#5B5B5B] hover:bg-purple-800 hover:text-[#FFFFFF]"
                 }
               `}
             >

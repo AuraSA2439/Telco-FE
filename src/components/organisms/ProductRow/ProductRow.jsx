@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import ProductCard from "../../molecules/ProductCard/ProductCard";
-import CardHeader from "../../atoms/CardHeader/CardHeader";
 
 export default function ProductRow({ products, onAdd }) {
   const scrollRef = useRef(null);
