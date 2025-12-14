@@ -32,8 +32,19 @@ export async function fetchRecommendations() {
     throw new Error(json.message || "Failed to fetch recommendations");
   }
 
-  // Normalize response shape
   return (json?.data?.recommendations || [])
-    .map((r) => r?.product || r)
+    .map((r, index) => {
+      const p = r?.product || r;
+      return {
+        id: p.id || p._id || `recommended-${index}`,
+        name: p.name,
+        category: (p.category || "").toLowerCase(),
+        price: p.price,
+        description: p.description,
+        specifications: p.specifications,
+        features: p.features,
+        isRecommended: true,
+      };
+    })
     .filter(Boolean);
 }

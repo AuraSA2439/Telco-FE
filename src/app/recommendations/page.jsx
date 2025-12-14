@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { fetchProducts } from "@/services/products";
 import { fetchRecommendations } from "@/services/recommendations";
 
 import CardInfo from "@/components/organisms/CardInfo/CardInfo";
@@ -9,12 +10,14 @@ import Filter from "@/components/organisms/Filter/Filter";
 import Loading from "@/components/atoms/Loading/Loading";
 
 export default function RecommendationPage() {
-  const [rawProducts, setRawProducts] = useState([]);
-  const [error, setError] = useState(null);
+  const [allProducts, setAllProducts] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
+
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [filter, setFilter] = useState({
-    category: "all",
+    category: "__RECOMMENDED__", // default tab
   });
 
   useEffect(() => {
@@ -23,17 +26,15 @@ export default function RecommendationPage() {
       setError(null);
 
       try {
-        const result = await fetchRecommendations();
+        const [all, recommended] = await Promise.all([
+          fetchProducts(),
+          fetchRecommendations(),
+        ]);
 
-        const normalized = result.map((p, index) => ({
-          ...p,
-          id: p.id || p._id || `product-${index}`,
-          category: (p.category || "").toLowerCase(),
-        }));
-
-        setRawProducts(normalized);
+        setAllProducts(all);
+        setRecommendedProducts(recommended);
       } catch (err) {
-        console.error("Recommendation error:", err);
+        console.error(err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -44,28 +45,33 @@ export default function RecommendationPage() {
   }, []);
 
   const filteredProducts = useMemo(() => {
-    if (filter.category === "all") return rawProducts;
+    if (filter.category === "__ALL__") {
+      return allProducts;
+    }
+
+    if (filter.category === "__RECOMMENDED__") {
+      return recommendedProducts;
+    }
 
     if (Array.isArray(filter.category)) {
-      return rawProducts.filter((p) =>
+      return recommendedProducts.filter((p) =>
         filter.category.includes(p.category)
       );
     }
 
-    return rawProducts.filter((p) => p.category === filter.category);
-  }, [filter.category, rawProducts]);
+    return recommendedProducts;
+  }, [filter.category, allProducts, recommendedProducts]);
 
   const isEmpty = !loading && !error && filteredProducts.length === 0;
 
   return (
     <>
       <CardInfo />
-      <div className="max-w-[950px] w-full mx-auto bg-[#F3F3F3] border-1 border-[var(--neutral-color)] rounded-2xl overflow-hidden">
+
+      <div className="max-w-[950px] mx-auto bg-[#F3F3F3] border border-[var(--neutral-color)] rounded-2xl overflow-hidden">
         <Filter
           filter={filter}
-          onChange={(v) =>
-            setFilter((prev) => ({ ...prev, ...v }))
-          }
+          onChange={(v) => setFilter((prev) => ({ ...prev, ...v }))}
         />
 
         {loading && (
@@ -75,21 +81,23 @@ export default function RecommendationPage() {
         )}
 
         {error && (
-          <p className="px-4 py-2 mt-4 text-red-400 rounded-md bg-red-900/20">
-            {error}
-          </p>
+          <p className="px-4 py-2 text-red-400 bg-red-900/20">{error}</p>
         )}
 
         {isEmpty && (
-          <div className="py-10 text-center text-gray-400">
-            <p className="text-lg">Tidak ada rekomendasi.</p>
-          </div>
+          <p className="py-10 text-center text-gray-400">
+            Tidak ada produk.
+          </p>
         )}
 
         {!loading && !error && filteredProducts.length > 0 && (
-          <ProductGrid className="my-4 px-4" products={filteredProducts} onAdd={() => {}} />
+          <ProductGrid
+            className="px-4 pb-4 my-3"
+            products={filteredProducts}
+            onAdd={() => {}}
+          />
         )}
-    </div>
+      </div>
     </>
   );
 }
