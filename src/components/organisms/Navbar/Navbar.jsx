@@ -64,7 +64,7 @@ export default function Navbar() {
           <Link href="/" className={styles.navButton}>
             Beranda
           </Link>
-          <Link href="/recommendations" className={styles.navButton}>
+          <Link href="/products" className={styles.navButton}>
             Beli Paket
           </Link>
 
