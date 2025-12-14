@@ -14,7 +14,7 @@ export default function CardHeader({
   return (
     <div className="border-solid border-b-2 border-[var(--neutral-color)]">
       <div className={`${styles.container} ${className}`} style={style}>
-        <h2 className={titleClass}>{title}</h2>
+        <h2 className={`${styles.title} ${titleClass}`}>{title}</h2>
 
         <Link href={href} className={`${styles.link} ${linkClass}`}>
           {linkText}
